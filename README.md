@@ -104,6 +104,8 @@
 
 <img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/summa.svg" alt="Summa operum" width="520"/>
 
+**[📜 Index commissionum omnium](https://github.com/NMO-SOC/NMO-SOC/blob/output/COMMISSIONES.md)**
+
 </div>
 
 ## 🫧 Bullae

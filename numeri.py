@@ -37,7 +37,7 @@ for r in repos:
     for k, v in d.items(): langs[k] = langs.get(k, 0) + v
     if sum(d.values()): rb.append((r["name"], sum(d.values())))
 # ---- GitLab (privatum): tantum summae et nomina arcana; nulla nomina vera publicantur
-GL = os.environ.get("GITLAB_TOKEN"); gl_ok = False
+GL = os.environ.get("GITLAB_TOKEN"); gl_ok = False; gl_names = {}
 FUNKY = ["Opus Arcanum", "Umbra Silens", "Aenigma", "Nox Perpetua", "Lux Occulta", "Fulmen Ferreum", "Vortex", "Cinis Aureus",
          "Draco Dormiens", "Phoenix", "Labyrinthus", "Sphinx", "Mysterium", "Nebula", "Eclipsis", "Chimaera"]
 def glapi(p):
@@ -57,7 +57,8 @@ if GL:
         for i, p in enumerate(sorted(prj, key=lambda p: p["id"])):
             by = (p.get("statistics") or {}).get("repository_size", 0)
             for k, v in glapi(f"/projects/{p['id']}/languages")[0].items(): langs[k] = langs.get(k, 0) + by * v / 100
-            if by: rb.append((FUNKY[i % len(FUNKY)] + (" " + rom(i // len(FUNKY) + 1) if i >= len(FUNKY) else ""), by))
+            nm = FUNKY[i % len(FUNKY)] + (" " + rom(i // len(FUNKY) + 1) if i >= len(FUNKY) else ""); gl_names[p["id"]] = nm
+            if by: rb.append((nm, by))
         gl_ok = True
     except Exception as e:
         print("GitLab omissum:", type(e).__name__)
@@ -117,10 +118,11 @@ def box(X, Y, L, h, col, y0=0, win=None):
 wr = random.Random(3)
 Lb_, P_ = 92, 120
 rbc = [x for x in rb if x[0] not in ("NMO-SOC", "nmo-soc.github.io")]
-RW = max(2, -(-len(rbc) // 4)); HU = 680 + (RW - 2) * 60
-cells = sorted([(c, r) for c in range(4) for r in range(RW)], key=lambda t: (t[0] + t[1], t[0]))
-o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="{HU}" viewBox="0 0 900 {HU}">{G}<style>.u{{font:800 16px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0d0720;stroke-width:4px}}</style><rect width="900" height="{HU}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Urbs · aedificia operum</text>'
-def pos(c, r): return 398 + (c - r) * .866 * P_, 330 + (c + r) * .5 * P_
+CO = 4 if len(rbc) <= 8 else 5; RW = max(2, -(-len(rbc) // CO))
+WU = max(900, int((CO + RW - 2) * .866 * P_ + 2 * .866 * Lb_ + 120)); HU = int(330 + (CO + RW - 2) * .5 * P_ + 110); X0 = WU / 2 - (CO - RW) / 2 * .866 * P_
+cells = sorted([(c, r) for c in range(CO) for r in range(RW)], key=lambda t: (t[0] + t[1], t[0]))
+o = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WU}" height="{HU}" viewBox="0 0 {WU} {HU}">{G}<style>.u{{font:800 16px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0d0720;stroke-width:4px}}</style><rect width="{WU}" height="{HU}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Urbs · aedificia operum</text>'
+def pos(c, r): return X0 + (c - r) * .866 * P_, 330 + (c + r) * .5 * P_
 for c, r in sorted(cells, key=lambda t: (t[0] + t[1], t[0])):
     X, Y = pos(c, r)
     o += f'<polygon points="{X},{Y-.5*P_} {X+.866*P_},{Y} {X},{Y+.5*P_} {X-.866*P_},{Y}" fill="#8A2BE2" fill-opacity=".07" stroke="#8A2BE2" stroke-opacity=".3"/>'
@@ -171,3 +173,37 @@ if gl_ok:
         y += 46
     h = y + 5
     open("summa.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="52" class="t">Summa operum</text><g style="font:700 15px Segoe UI,sans-serif;fill:#9ca3af;text-anchor:end"><text x="300" y="98">GitHub</text><text x="410" y="98">GitLab</text><text x="530" y="98" style="fill:#A78BFA">Summa</text></g>{b}</svg>')
+
+# ---- index commissionum omnium (GitHub + GitLab); nuntii privati non publicantur
+import collections
+NL = chr(10)
+com = []
+for r in repos:
+    if r["fork"]: continue
+    pg = 1
+    while True:
+        try: dt = api(f"/repos/{U}/{r['name']}/commits?author={U}&per_page=100&page={pg}")
+        except Exception: break
+        for c in dt:
+            com.append((c["commit"]["author"]["date"][:10], "GitHub", r["name"], (c["commit"]["message"].splitlines() or [""])[0]))
+        if len(dt) < 100: break
+        pg += 1
+if gl_ok:
+    for pid, nm in gl_names.items():
+        pg = 1
+        while True:
+            try: dt = glapi(f"/projects/{pid}/repository/commits?all=true&per_page=100&page={pg}")[0]
+            except Exception: break
+            for c in dt: com.append((c["created_at"][:10], "GitLab", nm, ""))
+            if len(dt) < 100: break
+            pg += 1
+com.sort(key=lambda x: x[0], reverse=True)
+by_y = collections.OrderedDict()
+for c in com: by_y.setdefault(c[0][:4], []).append(c)
+esc = lambda t: "".join(" " if ch in "|<>" else ch for ch in t)[:110]
+md = "# Index commissionum omnium" + NL + NL + f"**{len(com)}** commissiones · GitHub et GitLab coniunctae" + NL + NL
+for y_, lst in by_y.items():
+    md += f"<details><summary><b>{y_}</b> · {len(lst)}</summary>" + NL + NL + "| Dies | Fons | Opus | Nuntius |" + NL + "|:--|:--|:--|:--|" + NL
+    for d_, f_, n_, m_ in lst: md += f"| {d_} | {f_} | {n_} | {esc(m_) or '—'} |" + NL
+    md += NL + "</details>" + NL + NL
+open("COMMISSIONES.md", "w", encoding="utf-8").write(md)
