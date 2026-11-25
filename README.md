@@ -98,6 +98,14 @@
 
 </div>
 
+## 🧮 Summa
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/summa.svg" alt="Summa operum" width="520"/>
+
+</div>
+
 ## 🫧 Bullae
 
 <div align="center">
