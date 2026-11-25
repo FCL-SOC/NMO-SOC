@@ -102,6 +102,18 @@
 
 <img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/bullae.svg" alt="Bullae" width="800"/>
 
+**Clica ut aperias:**
+
+<a href="https://nmo-soc.github.io/english-2027/"><img src="https://img.shields.io/badge/english--2027-A78BFA?style=for-the-badge&logo=githubpages&logoColor=white" alt="english-2027"/></a>
+<a href="https://nmo-soc.github.io/ars-verbi/"><img src="https://img.shields.io/badge/ars--verbi-8A2BE2?style=for-the-badge&logo=githubpages&logoColor=white" alt="ars-verbi"/></a>
+<a href="https://nmo-soc.github.io/grammarlab/"><img src="https://img.shields.io/badge/grammarlab-60a5fa?style=for-the-badge&logo=githubpages&logoColor=white" alt="grammarlab"/></a>
+<a href="https://nmo-soc.github.io/neptune-ocean/"><img src="https://img.shields.io/badge/neptune--ocean-34d399?style=for-the-badge&logo=githubpages&logoColor=white" alt="neptune-ocean"/></a>
+<a href="https://nmo-soc.github.io/the-final-draft/"><img src="https://img.shields.io/badge/the--final--draft-fbbf24?style=for-the-badge&logo=githubpages&logoColor=white" alt="the-final-draft"/></a>
+<a href="https://nmo-soc.github.io/assessment-tracker/"><img src="https://img.shields.io/badge/assessment--tracker-f87171?style=for-the-badge&logo=githubpages&logoColor=white" alt="assessment-tracker"/></a>
+<a href="https://nmo-soc.github.io/Developmental-Rubric-Creator/"><img src="https://img.shields.io/badge/Developmental--Rubric--Creator-f472b6?style=for-the-badge&logo=githubpages&logoColor=white" alt="Developmental-Rubric-Creator"/></a>
+<a href="https://nmo-soc.github.io/exam-timer/"><img src="https://img.shields.io/badge/exam--timer-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white" alt="exam-timer"/></a>
+<a href="https://github.com/NMO-SOC/doc-chat"><img src="https://img.shields.io/badge/doc--chat-fb923c?style=for-the-badge&logo=github&logoColor=white" alt="doc-chat"/></a>
+
 </div>
 
 ## 🏆 Trophaea
