@@ -11,6 +11,10 @@
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
 
+<br>
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/dicta.svg" alt="Dicta" width="700"/>
+
 </div>
 
 <div align="center">
@@ -47,17 +51,17 @@
 
 <div align="center">
 
-| | Opus | Quid est |
-|:-:|:--|:--|
-| 🗺️ | [english-2027](https://github.com/NMO-SOC/english-2027) | Tabula curriculi Anglici in annum MMXXVII |
-| 📖 | [ars-verbi](https://github.com/NMO-SOC/ars-verbi) | Dux examinis VCE Anglici (Unitates III et IV), in annum MMXXVII renovatus |
-| 🔤 | [grammarlab](https://github.com/NMO-SOC/grammarlab) | Pagina grammaticae docendae dicata |
-| 🌊 | [neptune-ocean](https://github.com/NMO-SOC/neptune-ocean) | Anglice Shakespeariana |
-| 🕵️ | [the-final-draft](https://github.com/NMO-SOC/the-final-draft) | Ludus thesaurorum investigandorum |
-| 📊 | [assessment-tracker](https://github.com/NMO-SOC/assessment-tracker) | Instrumentum ad progressum aestimationum observandum |
-| 🧩 | [Developmental-Rubric-Creator](https://github.com/NMO-SOC/Developmental-Rubric-Creator) | Generator normarum progressionis |
-| ⏱️ | [exam-timer](https://github.com/NMO-SOC/exam-timer) | Horologium examinis |
-| 💬 | [doc-chat](https://github.com/NMO-SOC/doc-chat) | *Haec non est fistula* |
+| | Opus | Quid est | Aperi |
+|:-:|:--|:--|:-:|
+| 🗺️ | [english-2027](https://github.com/NMO-SOC/english-2027) | Tabula curriculi Anglici in annum MMXXVII | [🌐](https://nmo-soc.github.io/english-2027/) |
+| 📖 | [ars-verbi](https://github.com/NMO-SOC/ars-verbi) | Dux examinis VCE Anglici (Unitates III et IV), in annum MMXXVII renovatus | [🌐](https://nmo-soc.github.io/ars-verbi/) |
+| 🔤 | [grammarlab](https://github.com/NMO-SOC/grammarlab) | Pagina grammaticae docendae dicata | [🌐](https://nmo-soc.github.io/grammarlab/) |
+| 🌊 | [neptune-ocean](https://github.com/NMO-SOC/neptune-ocean) | Anglice Shakespeariana | [🌐](https://nmo-soc.github.io/neptune-ocean/) |
+| 🕵️ | [the-final-draft](https://github.com/NMO-SOC/the-final-draft) | Ludus thesaurorum investigandorum | [🌐](https://nmo-soc.github.io/the-final-draft/) |
+| 📊 | [assessment-tracker](https://github.com/NMO-SOC/assessment-tracker) | Instrumentum ad progressum aestimationum observandum | [🌐](https://nmo-soc.github.io/assessment-tracker/) |
+| 🧩 | [Developmental-Rubric-Creator](https://github.com/NMO-SOC/Developmental-Rubric-Creator) | Generator normarum progressionis | [🌐](https://nmo-soc.github.io/Developmental-Rubric-Creator/) |
+| ⏱️ | [exam-timer](https://github.com/NMO-SOC/exam-timer) | Horologium examinis | [🌐](https://nmo-soc.github.io/exam-timer/) |
+| 💬 | [doc-chat](https://github.com/NMO-SOC/doc-chat) | *Haec non est fistula* | — |
 
 </div>
 
@@ -67,12 +71,33 @@
 
 </div>
 
+## 🔨 Nunc
+
+<div align="center">
+
+**Nunc aedifico:** tabulas curriculi in annum MMXXVII · instrumenta aestimationis · ludos litterarios
+
+**Nunc utor:** Claude Code · Python · LaTeX · HTML
+
+</div>
+
+## 🌟 Eminentia
+
+<div align="center">
+
+| 📖 **ars-verbi** | 🗺️ **english-2027** |
+|:-:|:-:|
+| Dux examinis VCE Anglici<br>renovatus in annum MMXXVII | Tabula curriculi Anglici<br>in annum MMXXVII |
+| [**Aperi 🌐**](https://nmo-soc.github.io/ars-verbi/) · [Codex 💻](https://github.com/NMO-SOC/ars-verbi) | [**Aperi 🌐**](https://nmo-soc.github.io/english-2027/) · [Codex 💻](https://github.com/NMO-SOC/english-2027) |
+
+</div>
+
 ## 📈 Numeri
 
 <div align="center">
 
 <img height="200" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/numeri.svg" alt="Numeri"/>
-<img height="200" src="https://github-readme-stats.vercel.app/api/top-langs/?username=NMO-SOC&layout=compact&theme=radical&hide_border=true&custom_title=Linguae%20Frequentissimae"/>
+<img height="200" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/linguae.svg" alt="Linguae"/>
 
 </div>
 
@@ -105,11 +130,25 @@
 
 </div>
 
+## 🏙️ Horizon
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/horizon.svg" alt="Horizon" width="800"/>
+
+</div>
+
 ## 📅 Actio
+
+<details open>
+<summary><b>Actio cotidiana (aperi / claude)</b></summary>
+<br>
 
 <div align="center">
 
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=NMO-SOC&theme=react-dark&hide_border=true&bg_color=0d1117&color=A78BFA&line=8A2BE2&point=FFFFFF&area=true&custom_title=Actio%20Cotidiana"/>
+
+</details>
 
 <br>
 
