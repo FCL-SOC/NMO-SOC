@@ -88,7 +88,11 @@
 
 <div align="center">
 
-<img src="https://github-profile-trophy.vercel.app/?username=NMO-SOC&theme=radical&no-frame=true&no-bg=true&row=1&column=7&margin-w=10"/>
+![Armaria](https://img.shields.io/badge/dynamic/json?style=for-the-badge&url=https://api.github.com/users/NMO-SOC&color=8A2BE2&query=$.public_repos&label=ARMARIA%20PUBLICA&logo=github)
+![Sectatores](https://img.shields.io/badge/dynamic/json?style=for-the-badge&url=https://api.github.com/users/NMO-SOC&color=8A2BE2&query=$.followers&label=SECTATORES&logo=github&color=blue)
+![Sequentes](https://img.shields.io/badge/dynamic/json?style=for-the-badge&url=https://api.github.com/users/NMO-SOC&color=8A2BE2&query=$.following&label=SEQUENTES&logo=github&color=teal)
+![Fasti](https://img.shields.io/github/created-at/NMO-SOC?style=for-the-badge&label=FASTI&color=gold)
+![Ultima actio](https://img.shields.io/github/last-commit/NMO-SOC/NMO-SOC?style=for-the-badge&label=ULTIMA%20ACTIO&color=crimson)
 
 </div>
 
