@@ -224,9 +224,13 @@
 
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=NMO-SOC&theme=react-dark&hide_border=true&bg_color=0d1117&color=A78BFA&line=8A2BE2&point=FFFFFF&area=true&custom_title=Actio%20Cotidiana"/>
 
+</div>
+
 </details>
 
 <br>
+
+<div align="center">
 
 <img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/tempus/solarium.svg" alt="Horologium solare" width="400"/>
 
