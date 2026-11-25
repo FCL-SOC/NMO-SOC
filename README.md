@@ -300,9 +300,11 @@
 <div align="center">
 
 <picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/snake-dark.svg">
-<img alt="Serpens: anguis qui contributiones anni vorat" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/snake.svg">
+<source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/serpens-static.svg">
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/serpens.svg" alt="Serpens: anguis qui contributiones GitHub et GitLab anni proximi vorat" width="800"/>
 </picture>
+
+<sub><i>Serpens · GitHub et GitLab coniunctae · ultimus annus</i></sub>
 
 </div>
 

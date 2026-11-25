@@ -301,6 +301,34 @@ pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(dv))
 dots = "".join(f'<circle cx="{px(i):.1f}" cy="{py(v):.1f}" r="3.5" fill="#fff"><title>{days[i].isoformat()} \u00b7 {v}</title></circle>' for i, v in enumerate(dv))
 open(PFX + "linea.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{LW}" height="{LH}" viewBox="0 0 {LW} {LH}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#E59AB8}}.w{{font:600 14px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{LW}" height="{LH}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="24" y="42" class="t">Actio cotidiana \u00b7 triginta dies</text>{grid}{xl}<polygon points="{lx0},{ly1} {pts} {lx1},{ly1}" fill="#B02A66" fill-opacity=".22"/><polyline points="{pts}" fill="none" stroke="#e59ab8" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>{dots}</svg>')
 
+# ---- serpens: anguis super calendarium coniunctum (GitHub + GitLab), ultimus annus
+path_ = []
+for w_ in range(nwk):
+    for d_ in (range(7) if w_ % 2 == 0 else range(6, -1, -1)):
+        dt_ = start + datetime.timedelta(days=7 * w_ + d_)
+        if dt_ <= today: path_.append((w_, d_, dt_))
+NP, SEG, STEPT = len(path_), 6, .05
+M_ = NP + SEG; DURS = M_ * STEPT + 2.5
+SX = lambda w: 40 + w * 17
+SY = lambda d: 66 + d * 17
+WS, HS = 40 + nwk * 17 + 30, 66 + 7 * 17 + 56
+cl = ""
+for i, (w_, d_, dt_) in enumerate(path_):
+    n_ = cnt.get(dt_.isoformat(), 0); ani = ""
+    if n_: ani = f'<animate attributeName="opacity" values="1;0;1" keyTimes="0;{i*STEPT/DURS:.4f};1" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
+    cl += f'<rect x="{SX(w_)}" y="{SY(d_)}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}">{ani}</rect>' if ani else f'<rect x="{SX(w_)}" y="{SY(d_)}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}"/>'
+sn = ""
+for k in range(SEG - 1, -1, -1):
+    idx = [min(max(j - k, 0), NP - 1) for j in range(M_)]
+    xs = ";".join(str(SX(path_[i][0])) for i in idx) + ";" + str(SX(path_[0][0]))
+    ys = ";".join(str(SY(path_[i][1])) for i in idx) + ";" + str(SY(path_[0][1]))
+    kt = ";".join(f"{j*STEPT/DURS:.4f}" for j in range(M_)) + ";1"
+    head = k == 0; col = "#f5c542" if head else ("#e59ab8" if k % 2 else "#c2386f")
+    sn += (f'<rect x="{SX(path_[0][0])}" y="{SY(path_[0][1])}" width="{16 if head else 14}" height="{16 if head else 14}" rx="{6 if head else 4}" fill="{col}" stroke="#12060d" stroke-width="1.2" transform="translate({-1 if head else 0},{-1 if head else 0})">'
+           f'<animate attributeName="x" values="{xs}" keyTimes="{kt}" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
+           f'<animate attributeName="y" values="{ys}" keyTimes="{kt}" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/></rect>')
+open(PFX + "serpens.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{WS}" height="{HS}" viewBox="0 0 {WS} {HS}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#e59ab8}}</style><rect width="{WS}" height="{HS}" rx="14" fill="url(#g)" stroke="#b02a66" stroke-width="2"/><text x="24" y="40" class="t">Serpens \u00b7 {tot_a} contributiones vorat</text>{cl}{sn}</svg>')
+
 # ---- nota renovationis et variantes sine motu
 def stamp(fn):
     if not os.path.exists(fn): return
@@ -315,5 +343,5 @@ def static(fn):
     t_ = re.sub(r'<rect ([^>]*?)width="0"([^>]*)><animate attributeName="width" from="0" to="([\d.]+)"[^>]*/></rect>', r'<rect \1width="\3"\2/>', t_)
     t_ = re.sub(r'<animate[^>]*/>|<animateTransform[^>]*/>', "", t_).replace(' opacity="0"', ' opacity="1"')
     open(fn.replace(".svg", "-static.svg"), "w", encoding="utf-8").write(t_)
-for f_ in ("numeri.svg", "summa.svg", PFX + "linguae.svg", PFX + "bullae.svg", PFX + "urbs.svg", PFX + "columnae.svg", PFX + "actio.svg", PFX + "linea.svg"): stamp(f_)
-for f_ in (PFX + "linguae.svg", PFX + "bullae.svg", PFX + "urbs.svg", PFX + "columnae.svg", PFX + "actio.svg"): static(f_)
+for f_ in ("numeri.svg", "summa.svg", PFX + "linguae.svg", PFX + "bullae.svg", PFX + "urbs.svg", PFX + "columnae.svg", PFX + "actio.svg", PFX + "linea.svg", PFX + "serpens.svg"): stamp(f_)
+for f_ in (PFX + "linguae.svg", PFX + "bullae.svg", PFX + "urbs.svg", PFX + "columnae.svg", PFX + "actio.svg", PFX + "serpens.svg"): static(f_)
