@@ -13,7 +13,7 @@
 
 <br>
 
-<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/tempus/dicta.svg" alt="Dies" width="700"/>
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/tempus/dicta.svg?v=2" alt="Dies" width="700"/>
 
 </div>
 
