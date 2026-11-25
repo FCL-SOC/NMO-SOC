@@ -15,7 +15,9 @@ jobs:
           if [ "$GITHUB_EVENT_NAME" != schedule ] || [ $(( s % 2 )) -eq 1 ]; then echo "go=yes" >> "$GITHUB_OUTPUT"; else echo "go=no" >> "$GITHUB_OUTPUT"; fi
       - uses: actions/checkout@v4
         if: steps.porta.outputs.go == 'yes'
-      - run: mkdir dist && python numeri.py && MODE=github python numeri.py && MODE=gitlab python numeri.py && (mv gh-*.svg gl-*.svg gh-COMMISSIONES.md gl-COMMISSIONES.md dist/ || true) && mv actio.svg numeri.svg linguae.svg bullae.svg urbs.svg columnae.svg titulus.svg COMMISSIONES.md dist/ && (mv summa.svg dist/ || true)
+      - run: pip install fonttools
+        if: steps.porta.outputs.go == 'yes'
+      - run: mkdir dist && cd dist && python ../numeri.py && MODE=github python ../numeri.py && MODE=gitlab python ../numeri.py
         if: steps.porta.outputs.go == 'yes'
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}", GITLAB_TOKEN: "${{ secrets.GITLAB_TOKEN }}"}
       - uses: Platane/snk/svg-only@v3
@@ -23,13 +25,13 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/snake.svg
-            dist/snake-dark.svg?palette=github-dark
+            dist/snake.svg?color_snake=#b45309&color_dots=#e9e0fb,#c4b5fd,#a78bfa,#7c3aed,#4c1d95
+            dist/snake-dark.svg?palette=github-dark&color_snake=#f5c542&color_dots=#241a3d,#4c1d95,#6d28d9,#8b5cf6,#ddd6fe
       - uses: yoshi389111/github-profile-3d-contrib@0.7.1
         if: steps.porta.outputs.go == 'yes'
         continue-on-error: true
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}", USERNAME: "${{ github.repository_owner }}"}
-      - run: cp profile-3d-contrib/profile-night-rainbow.svg dist/horizon.svg || true
+      - run: mkdir -p dist/horizon-themes && cp profile-3d-contrib/*.svg dist/horizon-themes/ || true; cp profile-3d-contrib/profile-night-rainbow.svg dist/horizon.svg || true
         if: steps.porta.outputs.go == 'yes'
       - uses: crazy-max/ghaction-github-pages@v4
         if: steps.porta.outputs.go == 'yes'

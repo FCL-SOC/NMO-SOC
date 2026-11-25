@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir dist && python tempus.py && mv dicta.svg solarium.svg dist/
+      - run: pip install fonttools
+      - run: mkdir dist && cd dist && python ../tempus.py
+        env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
       - uses: crazy-max/ghaction-github-pages@v4
         with: {target_branch: tempus, build_dir: dist}
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
