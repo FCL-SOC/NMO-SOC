@@ -1,12 +1,21 @@
-import json, math, os, re, sys, urllib.request
+import json, math, os, re, sys, time, urllib.error, urllib.request
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from glyphs import Face
 U = os.environ.get("GITHUB_REPOSITORY_OWNER", "NMO-SOC")
 MODE = os.environ.get("MODE", "all"); PFX = {"all": "", "github": "gh-", "gitlab": "gl-"}[MODE]
 if MODE == "gitlab" and not os.environ.get("GITLAB_TOKEN"): raise SystemExit(0)
 H = {"Authorization": "Bearer " + os.environ.get("GITHUB_TOKEN", ""), "Accept": "application/vnd.github+json"}
+def fetch(rq, tries=4):
+    """urlopen cum iteratione in errore transitorio (rete, 429, 5xx)."""
+    for k in range(tries):
+        try: return urllib.request.urlopen(rq, timeout=60)
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503, 504) or k == tries - 1: raise
+        except (urllib.error.URLError, ConnectionError, TimeoutError):
+            if k == tries - 1: raise
+        time.sleep(3 * (k + 1))
 def api(p):
-    return json.load(urllib.request.urlopen(urllib.request.Request("https://api.github.com" + p, headers=H)))
+    return json.load(fetch(urllib.request.Request("https://api.github.com" + p, headers=H)))
 def rom(n):
     o = ""
     for v, s in [(1000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"L"),(40,"XL"),(10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")]:
@@ -45,7 +54,7 @@ GL = os.environ.get("GITLAB_TOKEN"); gl_ok = False; gl_names = {}
 FUNKY = ["Opus Arcanum", "Umbra Silens", "Aenigma", "Nox Perpetua", "Lux Occulta", "Fulmen Ferreum", "Vortex", "Cinis Aureus",
          "Draco Dormiens", "Phoenix", "Labyrinthus", "Sphinx", "Mysterium", "Nebula", "Eclipsis", "Chimaera"]
 def glapi(p):
-    r = urllib.request.urlopen(urllib.request.Request("https://gitlab.com/api/v4" + p, headers={"PRIVATE-TOKEN": GL}))
+    r = fetch(urllib.request.Request("https://gitlab.com/api/v4" + p, headers={"PRIVATE-TOKEN": GL}))
     return json.load(r), r.headers.get("X-Total")
 if GL and MODE != "github":
     try:
@@ -65,7 +74,8 @@ if GL and MODE != "github":
             if by: rb.append((nm, by))
         gl_ok = True
     except Exception as e:
-        print("GitLab omissum:", type(e).__name__)
+        print("GitLab omissum:", type(e).__name__, getattr(e, "code", ""))
+        sys.exit(1)   # melius deficere quam imagines vacuas publicare
 tot = sum(langs.values()) or 1
 pc = lambda v: "&lt;1%" if 100 * v / tot < 1 else f"{100*v/tot:.0f}%"
 top = sorted(langs.items(), key=lambda x: -x[1])[:6]
@@ -226,8 +236,7 @@ if gl_ok:
     for pid, nm in gl_names.items():
         pg = 1
         while True:
-            try: dt = glapi(f"/projects/{pid}/repository/commits?all=true&per_page=100&page={pg}")[0]
-            except Exception: break
+            dt = glapi(f"/projects/{pid}/repository/commits?all=true&per_page=100&page={pg}")[0]
             for c in dt: com.append((c["created_at"][:10], "GitLab", nm, ""))
             if len(dt) < 100: break
             pg += 1
@@ -249,7 +258,7 @@ if MODE != "gitlab":
     try:
         q = {"query": "query($u:String!){user(login:$u){contributionsCollection{contributionCalendar{weeks{contributionDays{date contributionCount}}}}}}", "variables": {"u": U}}
         rq = urllib.request.Request("https://api.github.com/graphql", data=json.dumps(q).encode(), headers=dict(H, **{"Content-Type": "application/json"}))
-        for wk in json.load(urllib.request.urlopen(rq))["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]:
+        for wk in json.load(fetch(rq))["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]:
             for dd in wk["contributionDays"]: cnt[dd["date"]] += dd["contributionCount"]
     except Exception:
         for c in com:
