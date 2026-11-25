@@ -90,7 +90,8 @@
 
 ## 🌟 Eminentia
 
-<table width="100%">
+<table>
+<tr><td colspan="2"><img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/master/spacer.svg" width="860" height="1" alt=""/></td></tr>
 <tr>
 <td align="center" width="50%"><b>📖 ars-verbi</b><br><br>Dux examinis VCE Anglici,<br>renovatus in annum MMXXVII<br><br><a href="https://nmo-soc.github.io/ars-verbi/"><b>Aperi 🌐</b></a> · <a href="https://github.com/NMO-SOC/ars-verbi">Codex 💻</a></td>
 <td align="center" width="50%"><b>🗺️ english-2027</b><br><br>Tabula curriculi Anglici<br>in annum MMXXVII<br><br><a href="https://nmo-soc.github.io/english-2027/"><b>Aperi 🌐</b></a> · <a href="https://github.com/NMO-SOC/english-2027">Codex 💻</a></td>
