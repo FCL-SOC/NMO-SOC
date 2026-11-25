@@ -71,16 +71,8 @@
 
 <div align="center">
 
-<img height="180" src="https://github-readme-stats.vercel.app/api?username=NMO-SOC&show_icons=true&theme=radical&hide_border=true&count_private=true&custom_title=Numeri%20NMO-SOC"/>
-<img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=NMO-SOC&layout=compact&theme=radical&hide_border=true&custom_title=Linguae%20Frequentissimae"/>
-
-<img src="https://streak-stats.demolab.com?user=NMO-SOC&theme=radical&hide_border=true"/>
-
-</div>
-
-<div align="center">
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
+<img height="200" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/numeri.svg" alt="Numeri"/>
+<img height="200" src="https://github-readme-stats.vercel.app/api/top-langs/?username=NMO-SOC&layout=compact&theme=radical&hide_border=true&custom_title=Linguae%20Frequentissimae"/>
 
 </div>
 
@@ -99,6 +91,17 @@
 <div align="center">
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
+
+</div>
+
+## 🐍 Serpens
+
+<div align="center">
+
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/snake-dark.svg">
+<img alt="Serpens" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/snake.svg">
+</picture>
 
 </div>
 
