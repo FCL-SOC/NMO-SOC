@@ -36,6 +36,31 @@ for r in repos:
     d = api(f"/repos/{U}/{r['name']}/languages")
     for k, v in d.items(): langs[k] = langs.get(k, 0) + v
     if sum(d.values()): rb.append((r["name"], sum(d.values())))
+# ---- GitLab (privatum): tantum summae et nomina arcana; nulla nomina vera publicantur
+GL = os.environ.get("GITLAB_TOKEN"); gl_ok = False
+FUNKY = ["Opus Arcanum", "Umbra Silens", "Aenigma", "Nox Perpetua", "Lux Occulta", "Fulmen Ferreum", "Vortex", "Cinis Aureus",
+         "Draco Dormiens", "Phoenix", "Labyrinthus", "Sphinx", "Mysterium", "Nebula", "Eclipsis", "Chimaera"]
+def glapi(p):
+    r = urllib.request.urlopen(urllib.request.Request("https://gitlab.com/api/v4" + p, headers={"PRIVATE-TOKEN": GL}))
+    return json.load(r), r.headers.get("X-Total")
+if GL:
+    try:
+        prj, pg = [], 1
+        while True:
+            dt, _ = glapi(f"/projects?membership=true&owned=true&statistics=true&per_page=100&page={pg}")
+            prj += dt; pg += 1
+            if len(dt) < 100: break
+        gl = dict(stars=sum(p["star_count"] for p in prj), forks=sum(p["forks_count"] for p in prj), n=len(prj),
+                  commits=sum((p.get("statistics") or {}).get("commit_count", 0) for p in prj),
+                  mr=int(glapi("/merge_requests?scope=created_by_me&per_page=1")[1] or 0),
+                  issues=int(glapi("/issues?scope=created_by_me&per_page=1")[1] or 0))
+        for i, p in enumerate(sorted(prj, key=lambda p: p["id"])):
+            by = (p.get("statistics") or {}).get("repository_size", 0)
+            for k, v in glapi(f"/projects/{p['id']}/languages")[0].items(): langs[k] = langs.get(k, 0) + by * v / 100
+            if by: rb.append((FUNKY[i % len(FUNKY)] + (" " + rom(i // len(FUNKY) + 1) if i >= len(FUNKY) else ""), by))
+        gl_ok = True
+    except Exception as e:
+        print("GitLab omissum:", type(e).__name__)
 tot = sum(langs.values()) or 1
 top = sorted(langs.items(), key=lambda x: -x[1])[:6]
 C = ["#A78BFA", "#8A2BE2", "#60a5fa", "#34d399", "#fbbf24", "#f87171", "#f472b6", "#22d3ee", "#a3e635"]
@@ -92,8 +117,9 @@ def box(X, Y, L, h, col, y0=0, win=None):
 wr = random.Random(3)
 Lb_, P_ = 92, 120
 rbc = [x for x in rb if x[0] not in ("NMO-SOC", "nmo-soc.github.io")]
-cells = sorted([(c, r) for c in range(4) for r in range(2)], key=lambda t: (t[0] + t[1], t[0]))
-o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680">{G}<style>.u{{font:800 16px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0d0720;stroke-width:4px}}</style><rect width="900" height="680" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Urbs · aedificia operum</text>'
+RW = max(2, -(-len(rbc) // 4)); HU = 680 + (RW - 2) * 60
+cells = sorted([(c, r) for c in range(4) for r in range(RW)], key=lambda t: (t[0] + t[1], t[0]))
+o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="{HU}" viewBox="0 0 900 {HU}">{G}<style>.u{{font:800 16px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0d0720;stroke-width:4px}}</style><rect width="900" height="{HU}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Urbs · aedificia operum</text>'
 def pos(c, r): return 398 + (c - r) * .866 * P_, 330 + (c + r) * .5 * P_
 for c, r in sorted(cells, key=lambda t: (t[0] + t[1], t[0])):
     X, Y = pos(c, r)
@@ -133,3 +159,15 @@ for f in range(N):
     vl = "none;inline;none;none" if f else "inline;none;none"
     fr += f'<g display="none"><animate attributeName="display" values="{vl}" keyTimes="{kt}" calcMode="discrete" dur="{DUR}s" repeatCount="indefinite"/>{g_}</g>'
 open("titulus.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W3}" height="{H3}" viewBox="0 0 {W3} {H3}"><defs><linearGradient id="lt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c4b5fd"/></linearGradient></defs><style>text{{font:900 130px Georgia,"Times New Roman",serif;text-anchor:middle;letter-spacing:6px}}</style><ellipse cx="450" cy="195" rx="260" ry="14" fill="#8A2BE2" fill-opacity=".25"/>{fr}</svg>')
+
+# ---- summa (GitHub + GitLab)
+if gl_ok:
+    H_ = lambda i: rows[i][2]
+    tb = [("Armaria", H_(1), gl["n"]), ("Stellae", H_(0), gl["stars"]), ("Rami", H_(2), gl["forks"]),
+          ("Commissiones", H_(4), gl["commits"]), ("Rogationes", H_(5), gl["mr"]), ("Quaestiones", H_(6), gl["issues"])]
+    y = 130; b = ""
+    for i, (l, a, c) in enumerate(tb):
+        b += f'<g class="r" style="animation-delay:{i*.15}s"><text x="30" y="{y}" class="l">{l}</text><text x="300" y="{y}" text-anchor="end" class="n">{a}</text><text x="410" y="{y}" text-anchor="end" class="n">{c}</text><text x="530" y="{y}" text-anchor="end" class="n" style="fill:#A78BFA">{a+c}</text></g>'
+        y += 46
+    h = y + 5
+    open("summa.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="52" class="t">Summa operum</text><g style="font:700 15px Segoe UI,sans-serif;fill:#9ca3af;text-anchor:end"><text x="300" y="98">GitHub</text><text x="410" y="98">GitLab</text><text x="530" y="98" style="fill:#A78BFA">Summa</text></g>{b}</svg>')
