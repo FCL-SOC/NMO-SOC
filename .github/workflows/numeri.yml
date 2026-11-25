@@ -31,7 +31,7 @@ jobs:
         if: steps.porta.outputs.go == 'yes'
         continue-on-error: true
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}", USERNAME: "${{ github.repository_owner }}"}
-      - run: mkdir -p dist/horizon-themes && cp profile-3d-contrib/*.svg dist/horizon-themes/ || true; cp profile-3d-contrib/profile-night-rainbow.svg dist/horizon.svg || true
+      - run: cp profile-3d-contrib/profile-night-view.svg dist/horizon.svg || true
         if: steps.porta.outputs.go == 'yes'
       - uses: crazy-max/ghaction-github-pages@v4
         if: steps.porta.outputs.go == 'yes'
