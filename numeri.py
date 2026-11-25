@@ -203,7 +203,7 @@ com.sort(key=lambda x: x[0], reverse=True)
 by_y = collections.OrderedDict()
 for c in com: by_y.setdefault(c[0][:4], []).append(c)
 esc = lambda t: "".join(" " if ch in "|<>" else ch for ch in t)[:110]
-md = "# Index commissionum omnium" + NL + NL + f"**{len(com)}** commissiones · GitHub et GitLab coniunctae" + NL + NL
+md = "# Index commissionum omnium" + NL + NL + f"**{len(com)}** commissiones · " + {"all": "GitHub et GitLab coniunctae", "github": "GitHub", "gitlab": "GitLab"}[MODE] + NL + NL
 for y_, lst in by_y.items():
     md += f"<details><summary><b>{y_}</b> · {len(lst)}</summary>" + NL + NL + "| Dies | Fons | Opus | Nuntius |" + NL + "|:--|:--|:--|:--|" + NL
     for d_, f_, n_, m_ in lst: md += f"| {d_} | {f_} | {n_} | {esc(m_) or '—'} |" + NL
