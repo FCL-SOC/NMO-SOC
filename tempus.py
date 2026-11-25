@@ -32,8 +32,8 @@ def romdie(t):
     n = tgt - base + 1
     return f"pridie {nm}" if n == 2 else f"ante diem {rom(n)} {nm}"
 l1 = f"Hodie · dies {dies}"; l2 = f"{romdie(t)} · anno {rom(t.year)}"
-b = F.text(l1, 350, 38, 21, "#c4b5fd", "middle", bold=.3) + F.text(l2, 350, 82, fit(F, l2, 32, 640), "#ffffff", "middle", bold=.5)
-open("dicta.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="700" height="110" viewBox="0 0 700 110"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b1035"/><stop offset="1" stop-color="#0d1117"/></linearGradient>{F.defs()}</defs><rect width="700" height="110" rx="12" fill="url(#g)" stroke="#8A2BE2" stroke-width="1.5"/>{b}</svg>')
+b = F.text(l1, 350, 38, 21, "#f0c4d4", "middle", bold=.3) + F.text(l2, 350, 82, fit(F, l2, 32, 640), "#ffffff", "middle", bold=.5)
+open("dicta.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="700" height="110" viewBox="0 0 700 110"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a0a1c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>{F.defs()}</defs><rect width="700" height="110" rx="12" fill="url(#g)" stroke="#B02A66" stroke-width="1.5"/>{b}</svg>')
 
 # ---- solarium: horologium solare horizontale ad -37.9222, 145.0916 (hemisphaerium australe)
 LAT, LON = -37.922193684727546, 145.09156661102736
@@ -168,5 +168,5 @@ def strip(items, fn):
         x += wl + wv + 10
     W = x - 10
     open(fn, "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W:.0f}" height="34" viewBox="0 0 {W:.0f} 34"><defs>{FB.defs()}</defs>{o}</svg>')
-strip([("COMMISSIONES", commits, "#8A2BE2"), ("ROGATIONES", prs, "#2563eb"), ("ARMARIA", user.get("public_repos", "—"), "#0d9488"), ("SECTATORES", user.get("followers", "—"), "#d97706"), ("STELLAE", stars, "#a16207")], "insignia.svg")
-strip([("ARMARIA PUBLICA", user.get("public_repos", "—"), "#8A2BE2"), ("SECTATORES", user.get("followers", "—"), "#0d9488"), ("SEQUENTES", user.get("following", "—"), "#2563eb"), ("ULTIMA ACTIO", pushed, "#be123c")], "insignia2.svg")
+strip([("COMMISSIONES", commits, "#B02A66"), ("ROGATIONES", prs, "#2563eb"), ("ARMARIA", user.get("public_repos", "—"), "#0d9488"), ("SECTATORES", user.get("followers", "—"), "#d97706"), ("STELLAE", stars, "#a16207")], "insignia.svg")
+strip([("ARMARIA PUBLICA", user.get("public_repos", "—"), "#B02A66"), ("SECTATORES", user.get("followers", "—"), "#0d9488"), ("SEQUENTES", user.get("following", "—"), "#2563eb"), ("ULTIMA ACTIO", pushed, "#be123c")], "insignia2.svg")

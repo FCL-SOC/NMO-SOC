@@ -124,8 +124,8 @@
 
 **Clica ut aperias:**
 
-<a href="https://nmo-soc.github.io/english-2027/"><img src="https://img.shields.io/badge/english--2027-A78BFA?style=for-the-badge&logo=githubpages&logoColor=white" alt="english-2027"/></a>
-<a href="https://nmo-soc.github.io/ars-verbi/"><img src="https://img.shields.io/badge/ars--verbi-8A2BE2?style=for-the-badge&logo=githubpages&logoColor=white" alt="ars-verbi"/></a>
+<a href="https://nmo-soc.github.io/english-2027/"><img src="https://img.shields.io/badge/english--2027-E59AB8?style=for-the-badge&logo=githubpages&logoColor=white" alt="english-2027"/></a>
+<a href="https://nmo-soc.github.io/ars-verbi/"><img src="https://img.shields.io/badge/ars--verbi-B02A66?style=for-the-badge&logo=githubpages&logoColor=white" alt="ars-verbi"/></a>
 <a href="https://nmo-soc.github.io/grammarlab/"><img src="https://img.shields.io/badge/grammarlab-60a5fa?style=for-the-badge&logo=githubpages&logoColor=white" alt="grammarlab"/></a>
 <a href="https://nmo-soc.github.io/neptune-ocean/"><img src="https://img.shields.io/badge/neptune--ocean-34d399?style=for-the-badge&logo=githubpages&logoColor=white" alt="neptune-ocean"/></a>
 <a href="https://nmo-soc.github.io/the-final-draft/"><img src="https://img.shields.io/badge/the--final--draft-fbbf24?style=for-the-badge&logo=githubpages&logoColor=white" alt="the-final-draft"/></a>

@@ -21,8 +21,8 @@ def rom(n):
     for v, s in [(1000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"L"),(40,"XL"),(10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")]:
         while n >= v: o += s; n -= v
     return o
-G = '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1035"/><stop offset="1" stop-color="#0d1117"/></linearGradient></defs>'
-ST = "<style>.t{font:700 28px 'Segoe UI',sans-serif;fill:#A78BFA}.l{font:600 20px 'Segoe UI',sans-serif;fill:#e5e7eb}.n{font:800 24px 'Segoe UI',sans-serif;fill:#fff}.r{opacity:0;animation:f .6s forwards}@keyframes f{to{opacity:1}}@media (prefers-reduced-motion:reduce){.r{animation:none;opacity:1}}</style>"
+G = '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a0a1c"/><stop offset="1" stop-color="#0d1117"/></linearGradient></defs>'
+ST = "<style>.t{font:700 28px 'Segoe UI',sans-serif;fill:#E59AB8}.l{font:600 20px 'Segoe UI',sans-serif;fill:#e5e7eb}.n{font:800 24px 'Segoe UI',sans-serif;fill:#fff}.r{opacity:0;animation:f .6s forwards}@keyframes f{to{opacity:1}}@media (prefers-reduced-motion:reduce){.r{animation:none;opacity:1}}</style>"
 u = api(f"/users/{U}")
 repos = [r for r in api(f"/users/{U}/repos?per_page=100&type=owner")]
 rows = [
@@ -40,7 +40,7 @@ for i, (e, l, n) in enumerate(rows):
     body += f'<g class="r" style="animation-delay:{i*.15}s"><text x="30" y="{y}" font-size="24">{e}</text><text x="75" y="{y}" class="l">{l}</text><text x="{W-30}" y="{y}" text-anchor="end" class="n">{n}</text></g>'
     y += 46
 h = y + 5
-open("numeri.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="52" class="t">Numeri {U}</text>{body}</svg>')
+open("numeri.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="30" y="52" class="t">Numeri {U}</text>{body}</svg>')
 
 # linguae + bullae data
 langs = {}; rb = []
@@ -79,14 +79,14 @@ if GL and MODE != "github":
 tot = sum(langs.values()) or 1
 pc = lambda v: "&lt;1%" if 100 * v / tot < 1 else f"{100*v/tot:.0f}%"
 top = sorted(langs.items(), key=lambda x: -x[1])[:6]
-C = ["#A78BFA", "#8A2BE2", "#60a5fa", "#34d399", "#fbbf24", "#f87171", "#f472b6", "#22d3ee", "#a3e635"]
+C = ["#E59AB8", "#B02A66", "#60a5fa", "#34d399", "#fbbf24", "#f87171", "#f472b6", "#22d3ee", "#a3e635"]
 y = 100; b = ""
 for i, (k, v) in enumerate(top):
     w = 300 * v / tot
     b += f'<text x="30" y="{y}" class="l">{k}</text><rect x="180" y="{y-18}" width="0" height="22" rx="11" fill="{C[i]}"><animate attributeName="width" from="0" to="{max(w,6):.0f}" dur="1s" begin="{i*.15}s" fill="freeze"/></rect><text x="{190+w:.0f}" y="{y}" class="n" font-size="20">{pc(v)}</text>'
     y += 46
 h = y + 5
-open(PFX + "linguae.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="52" class="t">Linguae Frequentissimae</text>{b}</svg>')
+open(PFX + "linguae.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="30" y="52" class="t">Linguae Frequentissimae</text>{b}</svg>')
 
 # bullae: circles ~ size of each project
 EXCL = ("NMO-SOC", "nmo-soc.github.io")
@@ -107,7 +107,7 @@ for name, v in rb:
         x = 450 + d * math.cos(a) * 1.5; yy = 230 + d * math.sin(a)
         if r + 8 < x < 900 - r - 8 and r + 8 < yy < 460 - r - 8 and all(math.hypot(x - px, yy - py) >= r + pr + 8 for px, py, pr, _ in placed):
             placed.append((x, yy, r, name)); break
-o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460">{G}<style>.q{{font:700 15px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle}}</style><rect width="900" height="460" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="46" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Bullae · magnitudo operum</text>'
+o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460">{G}<style>.q{{font:700 15px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle}}</style><rect width="900" height="460" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="30" y="46" style="font:700 28px \'Segoe UI\',sans-serif;fill:#E59AB8">Bullae · magnitudo operum</text>'
 for i, (x, yy, r, n) in enumerate(placed):
     c = C[i % len(C)]; fs = max(13, min(18, r / 4.0)); lab = DISP.get(n, n)
     o += f'<g><animateTransform attributeName="transform" type="translate" values="0,0;0,-9;0,0" dur="{4+i*.7:.1f}s" repeatCount="indefinite"/><circle cx="{x:.0f}" cy="{yy:.0f}" r="{r:.0f}" fill="{c}" fill-opacity=".22" stroke="{c}" stroke-width="3"/><circle cx="{x-r*.3:.0f}" cy="{yy-r*.35:.0f}" r="{r*.18:.0f}" fill="#fff" fill-opacity=".25"/>{labsvg(lab, x, yy, fs)}</g>'
@@ -145,11 +145,11 @@ rbc = [x for x in rb if x[0] not in EXCL]
 CO = 4 if len(rbc) <= 8 else 5; RW = max(2, -(-len(rbc) // CO))
 WU = max(900, int((CO + RW - 2) * .866 * P_ + 2 * .866 * Lb_ + 120)); HU = int(365 + (CO + RW - 2) * .5 * P_ + 70); X0 = WU / 2 - (CO - RW) / 2 * .866 * P_
 cells = sorted([(c, r) for c in range(CO) for r in range(RW)], key=lambda t: (t[0] + t[1], t[0]))
-o = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WU}" height="{HU}" viewBox="0 0 {WU} {HU}">{G}<style>.u{{font:800 18px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0d0720;stroke-width:4px}}</style><rect width="{WU}" height="{HU}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Urbs · aedificia operum</text>'
+o = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WU}" height="{HU}" viewBox="0 0 {WU} {HU}">{G}<style>.u{{font:800 18px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#12060d;stroke-width:4px}}</style><rect width="{WU}" height="{HU}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#E59AB8">Urbs · aedificia operum</text>'
 def pos(c, r): return X0 + (c - r) * .866 * P_, 365 + (c + r) * .5 * P_
 for c, r in sorted(cells, key=lambda t: (t[0] + t[1], t[0])):
     X, Y = pos(c, r)
-    o += f'<polygon points="{X},{Y-.5*P_} {X+.866*P_},{Y} {X},{Y+.5*P_} {X-.866*P_},{Y}" fill="#8A2BE2" fill-opacity=".07" stroke="#8A2BE2" stroke-opacity=".3"/>'
+    o += f'<polygon points="{X},{Y-.5*P_} {X+.866*P_},{Y} {X},{Y+.5*P_} {X-.866*P_},{Y}" fill="#B02A66" fill-opacity=".07" stroke="#B02A66" stroke-opacity=".3"/>'
 for i, ((c, r), (name, v)) in enumerate(zip(cells, rbc)):
     X, Y = pos(c, r); h = 36 + 180 * math.sqrt(v / (rbc[0][1] or 1)); col = C[i % len(C)]
     lab = DISP.get(name, name)
@@ -159,7 +159,7 @@ open(PFX + "urbs.svg", "w", encoding="utf-8").write(o + "</svg>")
 # ---- columnae: acervi quadratorum per linguam
 bars = top[:5]; n_ = [max(1, round(18 * math.sqrt(v / tot))) for _, v in bars]
 Lq, u = 60, 13
-o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640">{G}<style>.u{{font:800 20px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0d0720;stroke-width:4px}}.w{{font:700 17px "Segoe UI",sans-serif;fill:#e5e7eb;text-anchor:middle}}</style><rect width="900" height="640" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#A78BFA">Columnae · linguae acervatae</text>'
+o = f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640">{G}<style>.u{{font:800 20px "Segoe UI",sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#12060d;stroke-width:4px}}.w{{font:700 17px "Segoe UI",sans-serif;fill:#e5e7eb;text-anchor:middle}}</style><rect width="900" height="640" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="30" y="50" style="font:700 28px \'Segoe UI\',sans-serif;fill:#E59AB8">Columnae · linguae acervatae</text>'
 for i, ((k, v), n) in enumerate(zip(bars, n_)):
     X = 170 + i * 120 * .866; Y = 330 + i * 60
     col = C[i % len(C)]
@@ -180,16 +180,16 @@ for f in range(N):
     layers = sorted([(-DEP + 2 * DEP * k / (NL - 1)) for k in range(NL)], key=lambda z: z * co)
     g_ = ""
     for z in layers:
-        fill = "url(#lt)" if abs(z) == DEP else shade("#6d28d9", .55 + .45 * (1 - abs(z) / DEP))
+        fill = "url(#lt)" if abs(z) == DEP else shade("#8c1c4f", .55 + .45 * (1 - abs(z) / DEP))
         g_ += f'<use href="#nm" fill="{fill}" transform="translate({450+z*si:.1f},0) scale({co:.4f},1) translate(-450,0)"/>'
     frames.append(g_)
     kt = f"0;{f/N:.4f};{(f+1)/N:.4f};1" if f else f"0;{1/N:.4f};1"
     vl = "none;inline;none;none" if f else "inline;none;none"
     fr += f'<g display="none"><animate attributeName="display" values="{vl}" keyTimes="{kt}" calcMode="discrete" dur="{DUR}s" repeatCount="indefinite"/>{g_}</g>'
 def titulus(body):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W3}" height="{H3}" viewBox="0 0 {W3} {H3}"><defs><linearGradient id="lt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c4b5fd"/></linearGradient>'
-            f'<linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1035"/><stop offset="1" stop-color="#0d1117"/></linearGradient>{FH.defs()}<g id="nm">{nm_def}</g></defs>'
-            f'<rect width="{W3}" height="{H3}" rx="16" fill="url(#tg)" stroke="#8A2BE2" stroke-width="2"/><ellipse cx="450" cy="212" rx="270" ry="13" fill="#8A2BE2" fill-opacity=".28"/>{body}</svg>')
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W3}" height="{H3}" viewBox="0 0 {W3} {H3}"><defs><linearGradient id="lt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f0c4d4"/></linearGradient>'
+            f'<linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a0a1c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>{FH.defs()}<g id="nm">{nm_def}</g></defs>'
+            f'<rect width="{W3}" height="{H3}" rx="16" fill="url(#tg)" stroke="#B02A66" stroke-width="2"/><ellipse cx="450" cy="212" rx="270" ry="13" fill="#B02A66" fill-opacity=".28"/>{body}</svg>')
 open("titulus.svg", "w", encoding="utf-8").write(titulus(fr))
 open("titulus-static.svg", "w", encoding="utf-8").write(titulus(frames[0]))
 
@@ -200,11 +200,11 @@ WT, HT, SZ, PER = 760, 76, 32, 4; TOT = PER * len(LN); clips = ""
 for i, ln_ in enumerate(LN):
     w_ = FT.width(ln_, SZ, 1); t0 = i * PER / TOT; ka, kb, kc = t0 + 1.8 / TOT, t0 + 3.4 / TOT, t0 + 3.6 / TOT
     clips += (f'<clipPath id="k{i}"><rect x="{(WT-w_)/2-6:.1f}" y="0" height="{HT}" width="0"><animate attributeName="width" values="0;0;{w_+12:.0f};{w_+12:.0f};0;0" keyTimes="0;{t0:.4f};{ka:.4f};{kb:.4f};{kc:.4f};1" dur="{TOT}s" repeatCount="indefinite"/></rect></clipPath>'
-              f'<g clip-path="url(#k{i})">{FT.text(ln_, WT/2, 50, SZ, "#c4b5fd", "middle", ls=1, bold=.4)}</g>')
+              f'<g clip-path="url(#k{i})">{FT.text(ln_, WT/2, 50, SZ, "#f0c4d4", "middle", ls=1, bold=.4)}</g>')
 def scriptio(body):
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{WT}" height="{HT}" viewBox="0 0 {WT} {HT}"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1035"/><stop offset="1" stop-color="#0d1117"/></linearGradient>{FT.defs()}</defs><rect width="{WT}" height="{HT}" rx="14" fill="url(#tg)" stroke="#8A2BE2" stroke-width="1.5"/>{body}</svg>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{WT}" height="{HT}" viewBox="0 0 {WT} {HT}"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a0a1c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>{FT.defs()}</defs><rect width="{WT}" height="{HT}" rx="14" fill="url(#tg)" stroke="#B02A66" stroke-width="1.5"/>{body}</svg>'
 open("scriptio.svg", "w", encoding="utf-8").write(scriptio(clips))
-open("scriptio-static.svg", "w", encoding="utf-8").write(scriptio(FT.text(LN[0], WT/2, 50, SZ, "#c4b5fd", "middle", ls=1, bold=.4)))
+open("scriptio-static.svg", "w", encoding="utf-8").write(scriptio(FT.text(LN[0], WT/2, 50, SZ, "#f0c4d4", "middle", ls=1, bold=.4)))
 
 # ---- summa (GitHub + GitLab)
 if gl_ok:
@@ -213,10 +213,10 @@ if gl_ok:
           ("Armaria", RW_["Armaria publica"], gl["n"]), ("Rami", RW_["Rami"], gl["forks"]), ("Stellae", RW_["Stellae acceptae"], gl["stars"])]
     y = 130; b = ""
     for i, (l, a, c) in enumerate(tb):
-        b += f'<g class="r" style="animation-delay:{i*.15}s"><text x="30" y="{y}" class="l">{l}</text><text x="300" y="{y}" text-anchor="end" class="n">{a}</text><text x="410" y="{y}" text-anchor="end" class="n">{c}</text><text x="530" y="{y}" text-anchor="end" class="n" style="fill:#A78BFA">{a+c}</text></g>'
+        b += f'<g class="r" style="animation-delay:{i*.15}s"><text x="30" y="{y}" class="l">{l}</text><text x="300" y="{y}" text-anchor="end" class="n">{a}</text><text x="410" y="{y}" text-anchor="end" class="n">{c}</text><text x="530" y="{y}" text-anchor="end" class="n" style="fill:#E59AB8">{a+c}</text></g>'
         y += 46
     h = y + 5
-    open("summa.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="30" y="52" class="t">Summa operum</text><g style="font:700 15px Segoe UI,sans-serif;fill:#9ca3af;text-anchor:end"><text x="300" y="98">GitHub</text><text x="410" y="98">GitLab</text><text x="530" y="98" style="fill:#A78BFA">Summa</text></g>{b}</svg>')
+    open("summa.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">{G}{ST}<rect width="{W}" height="{h}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="30" y="52" class="t">Summa operum</text><g style="font:700 15px Segoe UI,sans-serif;fill:#9ca3af;text-anchor:end"><text x="300" y="98">GitHub</text><text x="410" y="98">GitLab</text><text x="530" y="98" style="fill:#E59AB8">Summa</text></g>{b}</svg>')
 
 # ---- index commissionum omnium (GitHub + GitLab); nuntii privati non publicantur
 import collections
@@ -272,7 +272,7 @@ nwk = (today - start).days // 7 + 1
 vals = sorted(v for k, v in cnt.items() if v and start.isoformat() <= k <= today.isoformat())
 q_ = [vals[int(len(vals) * f)] for f in (.25, .5, .75)] if vals else [1, 2, 3]
 lv = lambda n: 0 if not n else 1 if n <= q_[0] else 2 if n <= q_[1] else 3 if n <= q_[2] else 4
-PAL = ["#241a3d", "#4c1d95", "#6d28d9", "#8b5cf6", "#ddd6fe"]
+PAL = ["#2a1220", "#5e1236", "#8c1c4f", "#c2386f", "#fbe3ec"]
 MES = "Ian Feb Mar Apr Mai Iun Iul Aug Sep Oct Nov Dec".split()
 DIE = ["Sol", "", "Mar", "", "Iov", "", "Sat"]
 tot_a = 0; cells_ = ""; labs = ""; last_m = -1
@@ -288,18 +288,18 @@ for d_, t_ in enumerate(DIE):
     if t_: labs += f'<text x="14" y="{83+d_*17}" class="w">{t_}</text>'
 WA = 60 + nwk * 17 + 30; HA = 72 + 7 * 17 + 60
 leg = "".join(f'<rect x="{WA-190+i*20}" y="{HA-30}" width="14" height="14" rx="3" fill="{c}"/>' for i, c in enumerate(PAL))
-open(PFX + "actio.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{WA}" height="{HA}" viewBox="0 0 {WA} {HA}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#A78BFA}}.w{{font:600 14px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{WA}" height="{HA}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="20" y="34" class="t">Actio · {tot_a} contributiones in anno proximo</text>{labs}{cells_}<text x="{WA-200}" y="{HA-19}" class="w" text-anchor="end">Minus</text>{leg}<text x="{WA-84}" y="{HA-19}" class="w">Plus</text></svg>')
+open(PFX + "actio.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{WA}" height="{HA}" viewBox="0 0 {WA} {HA}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#E59AB8}}.w{{font:600 14px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{WA}" height="{HA}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="20" y="34" class="t">Actio · {tot_a} contributiones in anno proximo</text>{labs}{cells_}<text x="{WA-200}" y="{HA-19}" class="w" text-anchor="end">Minus</text>{leg}<text x="{WA-84}" y="{HA-19}" class="w">Plus</text></svg>')
 
 # ---- linea: actio cotidiana (triginta dies), pro graphico externo
 days = [today - datetime.timedelta(days=29 - i) for i in range(30)]; dv = [cnt.get(d.isoformat(), 0) for d in days]
 ymax = next((m for m in (5, 10, 20, 50, 100, 200, 500, 1000) if m >= max(dv + [1])), max(dv))
 LW, LH, lx0, lx1, ly0, ly1 = 900, 320, 70, 870, 75, 255
 px = lambda i: lx0 + (lx1 - lx0) * i / 29; py = lambda v: ly1 - (ly1 - ly0) * v / ymax
-grid = "".join(f'<line x1="{lx0}" y1="{py(ymax*k/4):.1f}" x2="{lx1}" y2="{py(ymax*k/4):.1f}" stroke="#8A2BE2" stroke-opacity=".18"/><text x="{lx0-10}" y="{py(ymax*k/4)+5:.1f}" text-anchor="end" class="w">{ymax*k//4}</text>' for k in range(5))
+grid = "".join(f'<line x1="{lx0}" y1="{py(ymax*k/4):.1f}" x2="{lx1}" y2="{py(ymax*k/4):.1f}" stroke="#B02A66" stroke-opacity=".18"/><text x="{lx0-10}" y="{py(ymax*k/4)+5:.1f}" text-anchor="end" class="w">{ymax*k//4}</text>' for k in range(5))
 xl = "".join(f'<text x="{px(i):.1f}" y="{ly1+26}" text-anchor="middle" class="w">{days[i].day}</text>' for i in range(0, 30, 3))
 pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(dv))
 dots = "".join(f'<circle cx="{px(i):.1f}" cy="{py(v):.1f}" r="3.5" fill="#fff"><title>{days[i].isoformat()} \u00b7 {v}</title></circle>' for i, v in enumerate(dv))
-open(PFX + "linea.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{LW}" height="{LH}" viewBox="0 0 {LW} {LH}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#A78BFA}}.w{{font:600 14px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{LW}" height="{LH}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="24" y="42" class="t">Actio cotidiana \u00b7 triginta dies</text>{grid}{xl}<polygon points="{lx0},{ly1} {pts} {lx1},{ly1}" fill="#8A2BE2" fill-opacity=".22"/><polyline points="{pts}" fill="none" stroke="#a78bfa" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>{dots}</svg>')
+open(PFX + "linea.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{LW}" height="{LH}" viewBox="0 0 {LW} {LH}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#E59AB8}}.w{{font:600 14px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{LW}" height="{LH}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="24" y="42" class="t">Actio cotidiana \u00b7 triginta dies</text>{grid}{xl}<polygon points="{lx0},{ly1} {pts} {lx1},{ly1}" fill="#B02A66" fill-opacity=".22"/><polyline points="{pts}" fill="none" stroke="#e59ab8" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>{dots}</svg>')
 
 # ---- nota renovationis et variantes sine motu
 def stamp(fn):

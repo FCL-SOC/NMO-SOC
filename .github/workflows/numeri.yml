@@ -25,8 +25,8 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/snake.svg?color_snake=#b45309&color_dots=#e9e0fb,#c4b5fd,#a78bfa,#7c3aed,#4c1d95
-            dist/snake-dark.svg?palette=github-dark&color_snake=#f5c542&color_dots=#241a3d,#4c1d95,#6d28d9,#8b5cf6,#ddd6fe
+            dist/snake.svg?color_snake=#b45309&color_dots=#f6e3ea,#f0c4d4,#e59ab8,#b52f63,#5e1236
+            dist/snake-dark.svg?palette=github-dark&color_snake=#f5c542&color_dots=#2a1220,#5e1236,#8c1c4f,#c2386f,#fbe3ec
       - uses: yoshi389111/github-profile-3d-contrib@0.7.1
         if: steps.porta.outputs.go == 'yes'
         continue-on-error: true
