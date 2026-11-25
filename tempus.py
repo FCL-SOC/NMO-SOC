@@ -78,6 +78,19 @@ dj = nu.timestamp() / 86400 + 2440587.5 - 2451545.0
 Mq = math.radians((357.528 + 0.9856003 * dj) % 360)
 lam = (280.46 + 0.9856474 * dj + 1.915 * math.sin(Mq) + 0.02 * math.sin(2 * Mq)) % 360
 sg = int(lam // 30)
+# constellationes zodiaci supra horizontem (tempus sidereum loci); media longitudo ecliptica (J2000) cuiusque
+gm = (280.46061837 + 360.98564736629 * dj + LON) % 360
+eps = math.radians(23.4393)
+ZC = [41, 72, 104, 128, 156, 196, 229, 244, 283, 314, 340, 10]
+ZL = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpius", "Sagittarius", "Capricornus", "Aquarius", "Pisces"]
+def calt(lj):
+    l = math.radians(lj + (nu.year - 2000) * 0.01397)
+    ra = math.atan2(math.sin(l) * math.cos(eps), math.cos(l)); de = math.asin(math.sin(l) * math.sin(eps))
+    h = math.radians(gm) - ra
+    return math.degrees(math.asin(math.sin(phi) * math.sin(de) + math.cos(phi) * math.cos(de) * math.cos(h)))
+zalt = [calt(x) for x in ZC]
+dark = alt < math.radians(-12)
+vis = [k for k in range(12) if zalt[k] > 5] if dark else []
 ZG = "♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓".split()
 ZN = ["Ariete", "Tauro", "Geminis", "Cancro", "Leone", "Virgine", "Libra", "Scorpio", "Sagittario", "Capricorno", "Aquario", "Piscibus"]
 zod = ""
@@ -85,7 +98,8 @@ for k in range(12):
     a_ = math.radians(k * 30 + 15); gx, gy = O[0] + (R + 45) * math.sin(a_), O[1] - (R + 45) * math.cos(a_)
     on = k == sg
     if on: zod += f'<circle cx="{gx:.1f}" cy="{gy:.1f}" r="13" fill="#f5c542" fill-opacity=".3" stroke="#f5c542" stroke-width="1.5"/>'
-    fw, fc, fo = (700, "#fff4c2", 1) if on else (500, "#c9a24a", .7)
+    fw, fc, fo = (700, "#fff4c2", 1) if on else (700, "#ffffff", 1) if k in vis else (500, "#c9a24a", .55)
+    if k in vis: zod += f'<text x="{gx:.1f}" y="{gy-14:.1f}" text-anchor="middle" style="font:9px Segoe UI Symbol,DejaVu Sans,serif;fill:#fff">&#x2726;</text>'
     zod += f'<text x="{gx:.1f}" y="{gy+6:.1f}" text-anchor="middle" style="font:{fw} 17px Segoe UI Symbol,Arial Unicode MS,DejaVu Sans,serif;fill:{fc};fill-opacity:{fo}">{ZG[k]}&#xFE0E;</text>'
     zod += f'<line x1="{O[0]+(R+32)*math.sin(math.radians(k*30)):.1f}" y1="{O[1]-(R+32)*math.cos(math.radians(k*30)):.1f}" x2="{O[0]+(R+58)*math.sin(math.radians(k*30)):.1f}" y2="{O[1]-(R+58)*math.cos(math.radians(k*30)):.1f}" stroke="#c9a24a" stroke-opacity=".5"/>'
 # meandros (clavis Graeca) circa orbem
@@ -95,17 +109,25 @@ for k in range(48):
 vein = '<path d="M120 150 Q200 200 170 300 T260 380" stroke="#9c8a63" stroke-opacity=".25" fill="none" stroke-width="2"/><path d="M330 120 Q300 220 340 300" stroke="#9c8a63" stroke-opacity=".2" fill="none" stroke-width="1.5"/>' if not night else ""
 star = "".join(f'<circle cx="{x}" cy="{y}" r="1.4" fill="#fff"/>' for x, y in ((40, 40), (430, 60), (50, 380), (430, 370), (25, 220), (455, 230), (150, 22), (330, 18))) if night else ""
 txt = ("Nox" if night else "Hora solaris vera") + " · Sol in " + ZN[sg]
+if vis:
+    nm_ = ", ".join(ZL[k] for k in vis); cut = nm_.rfind(", ", 0, 52) if len(nm_) > 52 else -1
+    rows_ = ["Visibilia nunc: " + nm_] if cut < 0 else ["Visibilia nunc: " + nm_[:cut + 1], nm_[cut + 2:]]
+    if cut >= 0 and len("Visibilia nunc: " + nm_[:cut + 1]) > 62: rows_ = ["Visibilia nunc:", nm_]
+elif dark: rows_ = ["Nulla signa supra horizontem"]
+elif alt > 0: rows_ = ["Signa luce diei latent"]
+else: rows_ = ["Crepusculum · signa mox apparent"]
+tl = "".join(f'<text x="240" y="{531+i*17}" text-anchor="middle" style="font:italic 500 12.5px Palatino Linotype,Times New Roman,serif;fill:#e3c97a">{t}</text>' for i, t in enumerate(rows_))
 c1, c2 = ("#0b0f1d", "#04060c") if night else ("#f7f0df", "#d6c39a")
-open("solarium.svg", "w", encoding="utf-8").write(f'''<svg xmlns="http://www.w3.org/2000/svg" width="480" height="520" viewBox="0 0 480 520">
+open("solarium.svg", "w", encoding="utf-8").write(f'''<svg xmlns="http://www.w3.org/2000/svg" width="480" height="570" viewBox="0 0 480 570">
 <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101a2e"/><stop offset="1" stop-color="#070b14"/></linearGradient>
 <radialGradient id="m" cx=".38" cy=".32" r=".85"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></radialGradient>
 <linearGradient id="st" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient>
 <linearGradient id="au" x1="0" x2="1"><stop offset="0" stop-color="#7a4a14"/><stop offset=".5" stop-color="#e3b04b"/><stop offset="1" stop-color="#6b3e0e"/></linearGradient></defs>
-<rect width="480" height="520" rx="14" fill="url(#g)" stroke="#c9a24a" stroke-width="2"/>{star}
+<rect width="480" height="570" rx="14" fill="url(#g)" stroke="#c9a24a" stroke-width="2"/>{star}
 <circle cx="{O[0]}" cy="{O[1]}" r="{R+58}" fill="#14283f" stroke="#c9a24a" stroke-width="2"/><circle cx="{O[0]}" cy="{O[1]}" r="{R+32}" fill="#1e4d7a" fill-opacity=".7" stroke="#c9a24a" stroke-width="1.5"/>{zod}
 <circle cx="{O[0]}" cy="{O[1]}" r="{R+6}" fill="none" stroke="#c9a24a" stroke-width="2"/>{mea}
 <circle cx="{O[0]}" cy="{O[1]}" r="{R}" fill="url(#m)" stroke="#c9a24a" stroke-width="3"/>{vein}
 <g opacity="{.55 if night else 1}">{ln}</g>{sh}
 <rect x="{Cx-4}" y="{Cy}" width="8" height="{Ls}" rx="2" fill="url(#au)"/><circle cx="{Cx}" cy="{Cy}" r="6" fill="#6b3e0e" stroke="#e3b04b"/>{sun}
 <rect x="175" y="446" width="130" height="20" fill="url(#st)" stroke="#c9a24a"/><rect x="140" y="466" width="200" height="20" fill="url(#st)" stroke="#c9a24a"/><rect x="100" y="486" width="280" height="22" fill="url(#st)" stroke="#c9a24a"/>
-<text x="240" y="501" text-anchor="middle" style="font:italic 600 13px Palatino Linotype,Times New Roman,serif;fill:{'#c9a24a' if night else '#4a2c10'}">{txt}</text></svg>''')
+<text x="240" y="501" text-anchor="middle" style="font:italic 600 13px Palatino Linotype,Times New Roman,serif;fill:{'#c9a24a' if night else '#4a2c10'}">{txt}</text>{tl}</svg>''')
