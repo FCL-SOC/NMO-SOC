@@ -1,6 +1,8 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&color=gradient&customColorList=12,20,24&height=260&section=header&text=NMO-SOC&fontSize=80&fontColor=fff&animation=twinkling&fontAlignY=40&desc=Instrumenta%20ad%20linguam%20Anglicam%20docendam%20discendamque&descAlignY=65&descSize=20" width="100%"/>
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/titulus.svg" alt="NMO-SOC" width="800"/>
+
+*Instrumenta ad linguam Anglicam docendam discendamque*
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A78BFA&center=true&vCenter=true&width=700&lines=Ars+longa%2C+vita+brevis;Tabulae+curriculi+et+examinum+duces;Instrumenta+interactiva+ad+scholam;Ludi+et+experimenta+litteraria" alt="Ars longa, vita brevis"/>
 
@@ -113,6 +115,22 @@
 <a href="https://nmo-soc.github.io/Developmental-Rubric-Creator/"><img src="https://img.shields.io/badge/Developmental--Rubric--Creator-f472b6?style=for-the-badge&logo=githubpages&logoColor=white" alt="Developmental-Rubric-Creator"/></a>
 <a href="https://nmo-soc.github.io/exam-timer/"><img src="https://img.shields.io/badge/exam--timer-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white" alt="exam-timer"/></a>
 <a href="https://github.com/NMO-SOC/doc-chat"><img src="https://img.shields.io/badge/doc--chat-fb923c?style=for-the-badge&logo=github&logoColor=white" alt="doc-chat"/></a>
+
+</div>
+
+## 🏙️ Urbs
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/urbs.svg" alt="Urbs" width="800"/>
+
+</div>
+
+## 🧱 Columnae
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/columnae.svg" alt="Columnae" width="800"/>
 
 </div>
 
