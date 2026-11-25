@@ -90,6 +90,9 @@ PH = [(22.5, "Luna nova"), (67.5, "Luna crescens"), (112.5, "Luna prima quadra")
 phn = next(n for lim, n in PH if elong < lim)
 
 O = (240, 245); R = 135; Cx, Cy = 240, 189; Ls = 98
+from planets import altaz as pl_altaz, NAKED
+PL = {n: pl_altaz(n, dj, gm, phi) for n in NAKED}
+PCOL = {"Mercurius": ("#c9ccd6", "\u263f"), "Venus": ("#fff1b8", "\u2640"), "Mars": ("#ff7a59", "\u2642"), "Iuppiter": ("#f0d2a8", "\u2643"), "Saturnus": ("#e8d28a", "\u2644")}
 def ray_len(ex, ey):
     bx, by = Cx - O[0], Cy - O[1]; b_ = bx * ex + by * ey; c = bx * bx + by * by - R * R
     return -b_ + math.sqrt(b_ * b_ - c)
@@ -137,6 +140,19 @@ else:
         ln_ = math.hypot(Px, Py); ex, ey = Px / ln_, Py / ln_; L_ = ray_len(ex, ey); l2_ = min(ln_, L_ - 4)
         x2, y2 = Cx + ex * l2_, Cy + ey * l2_; nx, ny = -ey, ex
         sh = f'<polygon points="{Cx+nx*2:.1f},{Cy+ny*2:.1f} {x2+nx*5:.1f},{y2+ny*5:.1f} {x2-nx*5:.1f},{y2-ny*5:.1f} {Cx-nx*2:.1f},{Cy-ny*2:.1f}" fill="#000" fill-opacity=".6"/>'
+    psee = []
+    if alt < math.radians(-3):                              # planetae supra horizontem, caelo satis obscuro
+        placed_ = [(mx_, my_)] if up else []
+        for n_ in NAKED:
+            alt_p, az_p, _l = PL[n_]
+            if alt_p > math.radians(2):
+                psee.append(n_)
+                for rad in (R + 88, R + 106, R + 72):
+                    gx_, gy_ = O[0] + rad * math.sin(az_p), O[1] - rad * math.cos(az_p)
+                    if all(math.hypot(gx_ - qx, gy_ - qy) > 25 for qx, qy in placed_): break
+                placed_.append((gx_, gy_))
+                col_p, sym = PCOL[n_]
+                sun += f'<circle cx="{gx_:.1f}" cy="{gy_:.1f}" r="11" fill="#0b1220" stroke="{col_p}" stroke-width="1.8"/>' + Z.text(sym, gx_, gy_ + 5.5, 15, col_p, "middle")
 zod = ""
 for k in range(13):
     a_ = math.radians((k + .5) * STP); gx, gy = O[0] + (R + 45) * math.sin(a_), O[1] - (R + 45) * math.cos(a_)
@@ -170,18 +186,19 @@ elif alt > 0: rows_ = ["Signa luce diei latent"]
 else: rows_ = ["Crepusculum · signa mox apparent"]
 rows_.insert(0, "Signum astrologicum: " + ZA[sg])
 if night: rows_.append(f"{phn} \u00b7 {illum*100:.0f}% \u00b7 " + ("supra horizontem" if alt_mt > 0 else "sub horizonte"))
+if night and alt < math.radians(-3): rows_.append("Planetae: " + (", ".join(psee) or "nullae supra horizontem"))
 cap_c = "#c9a24a" if night else "#4a2c10"
 tl = F.text(txt, 240, 502, fit(F, txt, 17, 330), cap_c, "middle", bold=.35)
 tl += "".join(F.text(t_, 240, 534 + i * 19, fit(F, t_, 15.5, 450), "#e3c97a", "middle", bold=.25) for i, t_ in enumerate(rows_))
 moonlit = night and alt_mt > 0 and illum > .08
 c1, c2 = (("#3a456b", "#161c33") if moonlit else ("#0b0f1d", "#04060c")) if night else ("#f7f0df", "#d6c39a")
-open("solarium.svg", "w", encoding="utf-8").write(f'''<svg xmlns="http://www.w3.org/2000/svg" width="520" height="640" viewBox="0 0 520 640">
+open("solarium.svg", "w", encoding="utf-8").write(f'''<svg xmlns="http://www.w3.org/2000/svg" width="520" height="668" viewBox="0 0 520 668">
 <defs><radialGradient id="mhalo"><stop offset="0" stop-color="#dfe6ff" stop-opacity=".55"/><stop offset="1" stop-color="#dfe6ff" stop-opacity="0"/></radialGradient><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101a2e"/><stop offset="1" stop-color="#070b14"/></linearGradient>
 <radialGradient id="m" cx=".38" cy=".32" r=".85"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></radialGradient>
 <linearGradient id="st" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient>
 <radialGradient id="sunc" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff6c9"/><stop offset=".5" stop-color="#f5c542"/><stop offset="1" stop-color="#b7791f"/></radialGradient><radialGradient id="halo"><stop offset="0" stop-color="#ffd35c" stop-opacity=".6"/><stop offset="1" stop-color="#ffd35c" stop-opacity="0"/></radialGradient>
 <linearGradient id="au" x1="0" x2="1"><stop offset="0" stop-color="#7a4a14"/><stop offset=".5" stop-color="#e3b04b"/><stop offset="1" stop-color="#6b3e0e"/></linearGradient>{F.defs()}{Z.defs()}</defs>
-<rect width="520" height="640" rx="14" fill="url(#g)" stroke="#c9a24a" stroke-width="2"/>{star}<g transform="translate(20,28)">
+<rect width="520" height="668" rx="14" fill="url(#g)" stroke="#c9a24a" stroke-width="2"/>{star}<g transform="translate(20,28)">
 <circle cx="{O[0]}" cy="{O[1]}" r="{R+58}" fill="#14283f" stroke="#c9a24a" stroke-width="2"/><circle cx="{O[0]}" cy="{O[1]}" r="{R+32}" fill="#1e4d7a" fill-opacity=".7" stroke="#c9a24a" stroke-width="1.5"/>{zod}
 <circle cx="{O[0]}" cy="{O[1]}" r="{R+6}" fill="none" stroke="#c9a24a" stroke-width="2"/>{mea}
 <circle cx="{O[0]}" cy="{O[1]}" r="{R}" fill="url(#m)" stroke="#c9a24a" stroke-width="3"/>{vein}
