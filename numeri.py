@@ -301,32 +301,78 @@ pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(dv))
 dots = "".join(f'<circle cx="{px(i):.1f}" cy="{py(v):.1f}" r="3.5" fill="#fff"><title>{days[i].isoformat()} \u00b7 {v}</title></circle>' for i, v in enumerate(dv))
 open(PFX + "linea.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{LW}" height="{LH}" viewBox="0 0 {LW} {LH}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#E59AB8}}.w{{font:600 14px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{LW}" height="{LH}" rx="14" fill="url(#g)" stroke="#B02A66" stroke-width="2"/><text x="24" y="42" class="t">Actio cotidiana \u00b7 triginta dies</text>{grid}{xl}<polygon points="{lx0},{ly1} {pts} {lx1},{ly1}" fill="#B02A66" fill-opacity=".22"/><polyline points="{pts}" fill="none" stroke="#e59ab8" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>{dots}</svg>')
 
-# ---- serpens: anguis super calendarium coniunctum (GitHub + GitLab), ultimus annus
-path_ = []
+# ---- serpens: anguis super calendarium coniunctum (GitHub + GitLab); frumentum petit, non retro, crescit
+from collections import deque
+cells_ = {}
 for w_ in range(nwk):
-    for d_ in (range(7) if w_ % 2 == 0 else range(6, -1, -1)):
+    for d_ in range(7):
         dt_ = start + datetime.timedelta(days=7 * w_ + d_)
-        if dt_ <= today: path_.append((w_, d_, dt_))
-NP, SEG, STEPT = len(path_), 6, .05
-M_ = NP + SEG; DURS = M_ * STEPT + 2.5
-SX = lambda w: 40 + w * 17
-SY = lambda d: 66 + d * 17
+        if dt_ <= today: cells_[(w_, d_)] = dt_
+left = {c for c, dt_ in cells_.items() if cnt.get(dt_.isoformat(), 0)}
+def nxt(pos, prev):
+    """via brevissima ad proximam cellam cum frumento (non retro)."""
+    q = deque([(pos, [])]); seen = {pos} | ({prev} if prev else set())
+    while q:
+        c, p = q.popleft()
+        if c in left and c != pos: return p
+        for dx, dy in ((1, 0), (0, 1), (0, -1), (-1, 0)):
+            n = (c[0] + dx, c[1] + dy)
+            if n in cells_ and n not in seen: seen.add(n); q.append((n, p + [n]))
+    return None
+hp = [(-1, 3), (0, 3)]; eat = {}
+if (0, 3) in left: left.discard((0, 3)); eat[(0, 3)] = 1
+while left:
+    p = nxt(hp[-1], hp[-2]) or nxt(hp[-1], None)
+    if p is None: break
+    for c in p:
+        hp.append(c)
+        if c in left: left.discard(c); eat[c] = len(hp) - 1
+STEPT, SEGM, SEGB = .1, 10, 5
+M_ = len(hp) + SEGM; DURS = M_ * STEPT + 3.5
+PX = lambda c: 40 + c[0] * 17
+PY = lambda c: 66 + c[1] * 17
 WS, HS = 40 + nwk * 17 + 30, 66 + 7 * 17 + 56
+KT = [j * STEPT / DURS for j in range(M_)]
 cl = ""
-for i, (w_, d_, dt_) in enumerate(path_):
-    n_ = cnt.get(dt_.isoformat(), 0); ani = ""
-    if n_: ani = f'<animate attributeName="opacity" values="1;0;1" keyTimes="0;{i*STEPT/DURS:.4f};1" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
-    cl += f'<rect x="{SX(w_)}" y="{SY(d_)}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}">{ani}</rect>' if ani else f'<rect x="{SX(w_)}" y="{SY(d_)}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}"/>'
+for (w_, d_), dt_ in sorted(cells_.items(), key=lambda kv: kv[0]):
+    n_ = cnt.get(dt_.isoformat(), 0); c = (w_, d_)
+    if c in eat:
+        t = eat[c] * STEPT / DURS
+        cl += f'<rect x="{PX(c)}" y="{PY(c)}" width="14" height="14" rx="3" fill="{PAL[0]}"/>'
+        cl += (f'<rect x="{PX(c)}" y="{PY(c)}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}"><animate attributeName="opacity" values="1;1;0;0;1" '
+               f'keyTimes="0;{t:.4f};{t+.2/DURS:.4f};0.9990;1" dur="{DURS:.1f}s" repeatCount="indefinite"/></rect>')
+    else:
+        cl += f'<rect x="{PX(c)}" y="{PY(c)}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}"/>'
+et = sorted(eat.values())
+def track(vals):
+    return ";".join(f"{v:.1f}" for v in vals)
 sn = ""
-for k in range(SEG - 1, -1, -1):
-    idx = [min(max(j - k, 0), NP - 1) for j in range(M_)]
-    xs = ";".join(str(SX(path_[i][0])) for i in idx) + ";" + str(SX(path_[0][0]))
-    ys = ";".join(str(SY(path_[i][1])) for i in idx) + ";" + str(SY(path_[0][1]))
-    kt = ";".join(f"{j*STEPT/DURS:.4f}" for j in range(M_)) + ";1"
-    head = k == 0; col = "#f5c542" if head else ("#e59ab8" if k % 2 else "#c2386f")
-    sn += (f'<rect x="{SX(path_[0][0])}" y="{SY(path_[0][1])}" width="{16 if head else 14}" height="{16 if head else 14}" rx="{6 if head else 4}" fill="{col}" stroke="#12060d" stroke-width="1.2" transform="translate({-1 if head else 0},{-1 if head else 0})">'
-           f'<animate attributeName="x" values="{xs}" keyTimes="{kt}" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
-           f'<animate attributeName="y" values="{ys}" keyTimes="{kt}" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/></rect>')
+for k in range(SEGM - 1, -1, -1):
+    idx = [min(max(j - k, 0), len(hp) - 1) for j in range(M_)]
+    size = 14 - .35 * k; off = (14 - size) / 2; head = k == 0
+    xs = [PX(hp[i]) for i in idx]; ys = [PY(hp[i]) for i in idx]
+    kts = ";".join(f"{t:.4f}" for t in KT) + f";0.9990;1"
+    xv = track(xs + [xs[-1], PX(hp[0])]); yv = track(ys + [ys[-1], PY(hp[0])])
+    col = "#f5c542" if head else shade("#e59ab8", 1 - .06 * k)
+    i0 = min(max(SEGM - k, 0), len(hp) - 1)           # positio initialis (pro varianti sine motu)
+    appear = ""
+    if k >= SEGB and et:
+        tg = et[max(0, min(len(et) - 1, int(len(et) * (k - SEGB + 1) / (SEGM - SEGB + 1)) - 1))] * STEPT / DURS
+        appear = f'<animate attributeName="opacity" values="0;1;0" keyTimes="0;{tg:.4f};1" calcMode="discrete" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
+    sn += (f'<rect x="{PX(hp[i0])}" y="{PY(hp[i0])}" width="{16 if head else size:.1f}" height="{16 if head else size:.1f}" rx="{6 if head else 4}" fill="{col}" stroke="#12060d" stroke-width="1.2" transform="translate({-1 if head else off:.1f},{-1 if head else off:.1f})">'
+           f'<animate attributeName="x" values="{xv}" keyTimes="{kts}" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
+           f'<animate attributeName="y" values="{yv}" keyTimes="{kts}" dur="{DURS:.1f}s" repeatCount="indefinite"/>{appear}</rect>')
+# oculi: sequuntur caput et directionem
+for sgn in (1, -1):
+    exs, eys = [], []
+    for j in range(M_):
+        i = min(j, len(hp) - 1)
+        fx, fy = (hp[i][0] - hp[i - 1][0], hp[i][1] - hp[i - 1][1]) if i >= 1 else (1, 0)
+        exs.append(PX(hp[i]) + 7 + fx * 3.6 - sgn * fy * 3.7); eys.append(PY(hp[i]) + 7 + fy * 3.6 + sgn * fx * 3.7)
+    kts = ";".join(f"{t:.4f}" for t in KT) + ";0.9990;1"
+    j0 = min(SEGM, len(hp) - 1)
+    sn += (f'<circle cx="{exs[j0]:.1f}" cy="{eys[j0]:.1f}" r="2.2" fill="#12060d"><animate attributeName="cx" values="{track(exs + [exs[-1], PX(hp[0]) + 10.6])}" keyTimes="{kts}" dur="{DURS:.1f}s" repeatCount="indefinite"/>'
+           f'<animate attributeName="cy" values="{track(eys + [eys[-1], PY(hp[0]) + 7 + sgn * 3.7])}" keyTimes="{kts}" dur="{DURS:.1f}s" repeatCount="indefinite"/></circle>')
 open(PFX + "serpens.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{WS}" height="{HS}" viewBox="0 0 {WS} {HS}">{G}<style>.t{{font:700 26px Segoe UI,sans-serif;fill:#e59ab8}}</style><rect width="{WS}" height="{HS}" rx="14" fill="url(#g)" stroke="#b02a66" stroke-width="2"/><text x="24" y="40" class="t">Serpens \u00b7 {tot_a} contributiones vorat</text>{cl}{sn}</svg>')
 
 # ---- nota renovationis et variantes sine motu
