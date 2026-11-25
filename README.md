@@ -1,46 +1,79 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24&height=200&section=header&text=NMO-SOC&fontSize=70&fontColor=fff&animation=fadeIn&fontAlignY=38&desc=Building%20tools%20for%20English%20teaching%20%26%20learning&descAlignY=60&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&color=gradient&customColorList=12,20,24&height=260&section=header&text=NMO-SOC&fontSize=80&fontColor=fff&animation=twinkling&fontAlignY=40&desc=Instrumenta%20ad%20linguam%20Anglicam%20docendam%20discendamque&descAlignY=65&descSize=20" width="100%"/>
 
-![Profile views](https://komarev.com/ghpvc/?username=NMO-SOC&style=for-the-badge&color=blueviolet)
-![Followers](https://img.shields.io/github/followers/NMO-SOC?style=for-the-badge&logo=github&color=blue)
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A78BFA&center=true&vCenter=true&width=700&lines=Ars+longa%2C+vita+brevis;Tabulae+curriculi+et+examinum+duces;Instrumenta+interactiva+ad+scholam;Ludi+et+experimenta+litteraria" alt="Ars longa, vita brevis"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A78BFA&center=true&vCenter=true&width=600&lines=Curriculum+maps+%26+exam+guides;Interactive+classroom+tools;Games+%26+creative+experiments" alt="Typing SVG"/>
+![Visitatores](https://komarev.com/ghpvc/?username=NMO-SOC&style=for-the-badge&color=blueviolet&label=VISITATORES)
+![Sectatores](https://img.shields.io/github/followers/NMO-SOC?style=for-the-badge&logo=github&color=blue&label=SECTATORES)
+![Armaria](https://img.shields.io/badge/ARMARIA-10-8A2BE2?style=for-the-badge&logo=github)
+![Stellae](https://img.shields.io/github/stars/NMO-SOC?style=for-the-badge&logo=github&color=gold&label=STELLAE)
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
 
 </div>
 
-## 🛠️ Tech
+## 🛠️ Artes
+
+<div align="center">
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Claude](https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
 
-## 🚀 Projects
+</div>
 
-| | Project | What it is |
-|---|---|---|
-| 🗺️ | [english-2027](https://github.com/NMO-SOC/english-2027) | Curriculum map for English 2027 |
-| 📖 | [ars-verbi](https://github.com/NMO-SOC/ars-verbi) | Units 3/4 VCE English exam guide, updated for 2027 |
-| 🔤 | [grammarlab](https://github.com/NMO-SOC/grammarlab) | A page dedicated to teaching grammar |
-| 🌊 | [neptune-ocean](https://github.com/NMO-SOC/neptune-ocean) | Shakespearean English |
-| 🕵️ | [the-final-draft](https://github.com/NMO-SOC/the-final-draft) | A scavenger hunt game |
-| 📊 | [assessment-tracker](https://github.com/NMO-SOC/assessment-tracker) | Track assessment progress |
-| 🧩 | [Developmental-Rubric-Creator](https://github.com/NMO-SOC/Developmental-Rubric-Creator) | Developmental rubric generator |
-| ⏱️ | [exam-timer](https://github.com/NMO-SOC/exam-timer) | Themed exam timer |
-| 💬 | [doc-chat](https://github.com/NMO-SOC/doc-chat) | *This is not a pipe* |
-
-## 📈 Stats
+## 🏛️ Opera
 
 <div align="center">
 
-<img height="170" src="https://github-readme-stats.vercel.app/api?username=NMO-SOC&show_icons=true&theme=radical&hide_border=true&count_private=true"/>
-<img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=NMO-SOC&layout=compact&theme=radical&hide_border=true"/>
+| | Opus | Quid est |
+|:-:|:--|:--|
+| 🗺️ | [english-2027](https://github.com/NMO-SOC/english-2027) | Tabula curriculi Anglici in annum MMXXVII |
+| 📖 | [ars-verbi](https://github.com/NMO-SOC/ars-verbi) | Dux examinis VCE Anglici (Unitates III et IV), in annum MMXXVII renovatus |
+| 🔤 | [grammarlab](https://github.com/NMO-SOC/grammarlab) | Pagina grammaticae docendae dicata |
+| 🌊 | [neptune-ocean](https://github.com/NMO-SOC/neptune-ocean) | Anglice Shakespeariana |
+| 🕵️ | [the-final-draft](https://github.com/NMO-SOC/the-final-draft) | Ludus thesaurorum investigandorum |
+| 📊 | [assessment-tracker](https://github.com/NMO-SOC/assessment-tracker) | Instrumentum ad progressum aestimationum observandum |
+| 🧩 | [Developmental-Rubric-Creator](https://github.com/NMO-SOC/Developmental-Rubric-Creator) | Generator normarum progressionis |
+| ⏱️ | [exam-timer](https://github.com/NMO-SOC/exam-timer) | Horologium examinis |
+| 💬 | [doc-chat](https://github.com/NMO-SOC/doc-chat) | *Haec non est fistula* |
+
+</div>
+
+## 📈 Numeri
+
+<div align="center">
+
+<img height="180" src="https://github-readme-stats.vercel.app/api?username=NMO-SOC&show_icons=true&theme=radical&hide_border=true&count_private=true&custom_title=Numeri%20NMO-SOC"/>
+<img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=NMO-SOC&layout=compact&theme=radical&hide_border=true&custom_title=Linguae%20Frequentissimae"/>
 
 <img src="https://streak-stats.demolab.com?user=NMO-SOC&theme=radical&hide_border=true"/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24&height=100&section=footer" width="100%"/>
+</div>
+
+## 🏆 Trophaea
+
+<div align="center">
+
+<img src="https://github-profile-trophy.vercel.app/?username=NMO-SOC&theme=radical&no-frame=true&no-bg=true&row=1&column=7&margin-w=10"/>
+
+</div>
+
+## 📅 Actio
+
+<div align="center">
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=NMO-SOC&theme=react-dark&hide_border=true&bg_color=0d1117&color=A78BFA&line=8A2BE2&point=FFFFFF&area=true&custom_title=Actio%20Cotidiana"/>
+
+<br>
+
+*Ars longa, vita brevis.*
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24&height=120&section=footer" width="100%"/>
 
 </div>
