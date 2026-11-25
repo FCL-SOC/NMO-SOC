@@ -338,6 +338,6 @@
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/tempus/solarium.svg" alt="Horologium solare Graecum: hora solaris vera, constellatio in qua Sol est, signa visibilia" width="460"/>
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/tempus/solarium.svg" alt="Horologium solare Graecum: hora solaris vera, constellatio in qua Sol est, Luna nocte, signa visibilia" width="500"/>
 
 </div>
