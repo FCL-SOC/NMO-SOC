@@ -184,10 +184,6 @@
 
 <br>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=800&color=F7DF1E&center=true&vCenter=true&width=500&lines=Carpe+diem;Veni%2C+vidi%2C+vici;Docendo+discimus" alt="Carpe diem"/>
-
-*Ars longa, vita brevis.*
-
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,20,24&height=120&section=footer" width="100%"/>
 
 </div>
