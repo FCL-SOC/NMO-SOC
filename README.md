@@ -4,7 +4,6 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=A78BFA&center=true&vCenter=true&width=700&lines=Ars+longa%2C+vita+brevis;Tabulae+curriculi+et+examinum+duces;Instrumenta+interactiva+ad+scholam;Ludi+et+experimenta+litteraria" alt="Ars longa, vita brevis"/>
 
-![Visitatores](https://komarev.com/ghpvc/?username=NMO-SOC&style=for-the-badge&color=blueviolet&label=VISITATORES)
 ![Sectatores](https://img.shields.io/github/followers/NMO-SOC?style=for-the-badge&logo=github&color=blue&label=SECTATORES)
 ![Armaria](https://img.shields.io/badge/ARMARIA-10-8A2BE2?style=for-the-badge&logo=github)
 ![Stellae](https://img.shields.io/github/stars/NMO-SOC?style=for-the-badge&logo=github&color=gold&label=STELLAE)
@@ -96,8 +95,16 @@
 
 <div align="center">
 
-<img height="200" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/numeri.svg" alt="Numeri"/>
-<img height="200" src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/linguae.svg" alt="Linguae"/>
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/numeri.svg?v=2" alt="Numeri" width="440"/>
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/linguae.svg?v=2" alt="Linguae" width="440"/>
+
+</div>
+
+## 🫧 Bullae
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/bullae.svg" alt="Bullae" width="800"/>
 
 </div>
 
@@ -108,7 +115,6 @@
 ![Armaria](https://img.shields.io/badge/dynamic/json?style=for-the-badge&url=https://api.github.com/users/NMO-SOC&color=8A2BE2&query=$.public_repos&label=ARMARIA%20PUBLICA&logo=github)
 ![Sectatores](https://img.shields.io/badge/dynamic/json?style=for-the-badge&url=https://api.github.com/users/NMO-SOC&color=8A2BE2&query=$.followers&label=SECTATORES&logo=github&color=blue)
 ![Sequentes](https://img.shields.io/badge/dynamic/json?style=for-the-badge&url=https://api.github.com/users/NMO-SOC&color=8A2BE2&query=$.following&label=SEQUENTES&logo=github&color=teal)
-![Fasti](https://img.shields.io/github/created-at/NMO-SOC?style=for-the-badge&label=FASTI&color=gold)
 ![Ultima actio](https://img.shields.io/github/last-commit/NMO-SOC/NMO-SOC?style=for-the-badge&label=ULTIMA%20ACTIO&color=crimson)
 
 </div>
