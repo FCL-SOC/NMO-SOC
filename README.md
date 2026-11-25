@@ -112,11 +112,13 @@
 
 *Clica unum fontem ut aperias · ☑ aperta, ☐ clausa*
 
-<details open>
-<summary><b>☑ Utraque · GitHub et GitLab</b></summary>
+<details>
+<summary><b>☐ Utraque · GitHub et GitLab</b></summary>
 <br>
 
 <div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/actio.svg" alt="Actio" width="800"/>
 
 <img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/bullae.svg" alt="Bullae" width="800"/>
 
@@ -132,11 +134,13 @@
 
 </details>
 
-<details>
-<summary><b>☐ GitHub</b></summary>
+<details open>
+<summary><b>☑ GitHub</b></summary>
 <br>
 
 <div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/gh-actio.svg" alt="Actio" width="800"/>
 
 <img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/gh-bullae.svg" alt="Bullae" width="800"/>
 
@@ -157,6 +161,8 @@
 <br>
 
 <div align="center">
+
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/gl-actio.svg" alt="Actio" width="800"/>
 
 <img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/gl-bullae.svg" alt="Bullae" width="800"/>
 

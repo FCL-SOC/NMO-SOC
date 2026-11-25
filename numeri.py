@@ -209,3 +209,42 @@ for y_, lst in by_y.items():
     for d_, f_, n_, m_ in lst: md += f"| {d_} | {f_} | {n_} | {esc(m_) or '—'} |" + NL
     md += NL + "</details>" + NL + NL
 open(PFX + "COMMISSIONES.md", "w", encoding="utf-8").write(md)
+
+# ---- actio: calendarium contributionum (GitHub + GitLab), ultimus annus
+import datetime
+cnt = collections.Counter()
+if MODE != "gitlab":
+    try:
+        q = {"query": "query($u:String!){user(login:$u){contributionsCollection{contributionCalendar{weeks{contributionDays{date contributionCount}}}}}}", "variables": {"u": U}}
+        rq = urllib.request.Request("https://api.github.com/graphql", data=json.dumps(q).encode(), headers=dict(H, **{"Content-Type": "application/json"}))
+        for wk in json.load(urllib.request.urlopen(rq))["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]:
+            for dd in wk["contributionDays"]: cnt[dd["date"]] += dd["contributionCount"]
+    except Exception:
+        for c in com:
+            if c[1] == "GitHub": cnt[c[0]] += 1
+for c in com:
+    if c[1] == "GitLab": cnt[c[0]] += 1
+today = datetime.datetime.now(datetime.timezone.utc).date()
+start = today - datetime.timedelta(days=364)
+start -= datetime.timedelta(days=(start.weekday() + 1) % 7)
+nwk = (today - start).days // 7 + 1
+vals = sorted(v for k, v in cnt.items() if v and start.isoformat() <= k <= today.isoformat())
+q_ = [vals[int(len(vals) * f)] for f in (.25, .5, .75)] if vals else [1, 2, 3]
+lv = lambda n: 0 if not n else 1 if n <= q_[0] else 2 if n <= q_[1] else 3 if n <= q_[2] else 4
+PAL = ["#241a3d", "#4c1d95", "#6d28d9", "#8b5cf6", "#ddd6fe"]
+MES = "Ian Feb Mar Apr Mai Iun Iul Aug Sep Oct Nov Dec".split()
+DIE = ["Sol", "", "Mar", "", "Iov", "", "Sat"]
+tot_a = 0; cells_ = ""; labs = ""; last_m = -1
+for w_ in range(nwk):
+    d0 = start + datetime.timedelta(days=7 * w_)
+    if d0.month != last_m and w_ < nwk - 1: labs += f'<text x="{60+w_*17}" y="62" class="w">{MES[d0.month-1]}</text>'; last_m = d0.month
+    for d_ in range(7):
+        dt_ = d0 + datetime.timedelta(days=d_)
+        if dt_ > today: continue
+        n_ = cnt.get(dt_.isoformat(), 0); tot_a += n_
+        cells_ += f'<rect x="{60+w_*17}" y="{72+d_*17}" width="14" height="14" rx="3" fill="{PAL[lv(n_)]}" opacity="0"><title>{dt_.isoformat()} · {n_}</title><animate attributeName="opacity" from="0" to="1" dur=".4s" begin="{w_*.03:.2f}s" fill="freeze"/></rect>'
+for d_, t_ in enumerate(DIE):
+    if t_: labs += f'<text x="14" y="{83+d_*17}" class="w">{t_}</text>'
+WA = 60 + nwk * 17 + 30; HA = 72 + 7 * 17 + 60
+leg = "".join(f'<rect x="{WA-190+i*20}" y="{HA-30}" width="14" height="14" rx="3" fill="{c}"/>' for i, c in enumerate(PAL))
+open(PFX + "actio.svg", "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{WA}" height="{HA}" viewBox="0 0 {WA} {HA}">{G}<style>.t{{font:700 22px Segoe UI,sans-serif;fill:#A78BFA}}.w{{font:600 12px Segoe UI,sans-serif;fill:#9ca3af}}</style><rect width="{WA}" height="{HA}" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/><text x="20" y="34" class="t">Actio · {tot_a} contributiones in anno proximo</text>{labs}{cells_}<text x="{WA-200}" y="{HA-19}" class="w" text-anchor="end">Minus</text>{leg}<text x="{WA-84}" y="{HA-19}" class="w">Plus</text></svg>')
