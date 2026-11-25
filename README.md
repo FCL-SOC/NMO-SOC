@@ -130,14 +130,6 @@
 
 </div>
 
-## 🌌 Caelum
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/master/caelum.svg" alt="Caelum" width="700"/>
-
-</div>
-
 ## 🏙️ Horizon
 
 <div align="center">
