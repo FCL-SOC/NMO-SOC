@@ -13,7 +13,9 @@
 
 <br>
 
-<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/dicta.svg" alt="Dicta" width="700"/>
+<img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/output/dicta.svg" alt="Dies" width="700"/>
+
+<a href="https://nmo-soc.github.io/caelum/"><b>⏱️ Tempus atomicum ad millesimam secundam · vide in Caelo</b></a>
 
 </div>
 
