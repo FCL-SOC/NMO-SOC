@@ -130,6 +130,16 @@
 
 </div>
 
+## 🌌 Caelum
+
+<div align="center">
+
+<a href="https://nmo-soc.github.io/caelum/"><img src="https://raw.githubusercontent.com/NMO-SOC/NMO-SOC/master/caelum.svg" alt="Caelum" width="700"/></a>
+
+**[✨ Intra in Caelum — opera in tribus dimensionibus, trahe et clica ✨](https://nmo-soc.github.io/caelum/)**
+
+</div>
+
 ## 🏙️ Horizon
 
 <div align="center">
