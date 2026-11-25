@@ -45,42 +45,67 @@ dec = math.radians(23.45 * math.sin(math.radians(360 / 365 * (284 + n))))
 phi = math.radians(LAT)
 alt = math.asin(math.sin(phi) * math.sin(dec) + math.cos(phi) * math.cos(dec) * math.cos(Hh))
 az = math.atan2(math.sin(Hh), math.cos(Hh) * math.sin(phi) - math.tan(dec) * math.cos(phi)) + math.pi  # a septentrione, horarium
-O = (230, 225); R = 180; Cx, Cy = 230, 150; Ls = 130
+O = (240, 245); R = 135; Cx, Cy = 240, 189; Ls = 98
 def ray_len(ex, ey):
     bx, by = Cx - O[0], Cy - O[1]; b = bx * ex + by * ey; c = bx * bx + by * by - R * R
     return -b + math.sqrt(b * b - c)
 def alpha(Hr): return math.atan2(math.sin(abs(phi)) * math.sin(Hr), math.cos(Hr))   # tan a = sin|phi| tan H
-# lineae horariae et numeri Romani
-RN = ["VI", "VII", "VIII", "IX", "X", "XI", "XII", "I", "II", "III", "IV", "V", "VI"]
+GR = ["ϛʹ", "Ζʹ", "Ηʹ", "Θʹ", "Ιʹ", "ΙΑʹ", "ΙΒʹ",
+      "Αʹ", "Βʹ", "Γʹ", "Δʹ", "Εʹ", "ϛʹ"]   # numeri Ionici (stigma, keraia)
+night = alt <= 0
+INK = "#c9a24a" if night else "#4a2c10"; NUM = "#c9a24a" if night else "#1e4d7a"
 ln = ""
 for i in range(25):                                  # semihorae
     hh = 6 + i * .5; a = alpha(math.radians((hh - 12) * 15)); ex, ey = math.sin(a), math.cos(a); L_ = ray_len(ex, ey)
     full = i % 2 == 0
-    ln += f'<line x1="{Cx}" y1="{Cy}" x2="{Cx+ex*L_:.1f}" y2="{Cy+ey*L_:.1f}" stroke="#4c1d95" stroke-width="{2.2 if full else 1}" stroke-opacity="{.8 if full else .4}"/>'
+    ln += f'<line x1="{Cx}" y1="{Cy}" x2="{Cx+ex*L_:.1f}" y2="{Cy+ey*L_:.1f}" stroke="{INK}" stroke-width="{2.2 if full else 1}" stroke-opacity="{.85 if full else .4}"/>'
     if full:
-        ln += f'<text x="{Cx+ex*(L_-18):.1f}" y="{Cy+ey*(L_-18)+5:.1f}" text-anchor="middle" style="font:700 15px Georgia,serif;fill:#2e1065">{RN[i//2]}</text>'
+        ln += f'<text x="{Cx+ex*(L_-20):.1f}" y="{Cy+ey*(L_-20)+5:.1f}" text-anchor="middle" style="font:700 14px Palatino Linotype,Times New Roman,Segoe UI Symbol,serif;fill:{NUM}">{GR[i//2]}</text>'
 sh = sun = ""
-night = alt <= 0
 if not night:
-    ux, uy = -math.sin(az), math.cos(az)             # directio umbrae (x oriens, y meridies)
+    ux, uy = -math.sin(az), math.cos(az)
     z = Ls * math.tan(abs(phi)); d = z / math.tan(max(alt, math.radians(2)))
-    Px, Py = 0 + d * ux, Ls + d * uy                  # umbra apicis styli relative ad C
-    # proba: umbra in linea horaria cadit
+    Px, Py = d * ux, Ls + d * uy
     assert abs(math.atan2(Px, Py) - alpha(Hh)) < 1e-6 or abs(abs(math.atan2(Px, Py) - alpha(Hh)) - 2 * math.pi) < 1e-6, (math.atan2(Px, Py), alpha(Hh))
     ln_ = math.hypot(Px, Py); ex, ey = Px / ln_, Py / ln_; L_ = ray_len(ex, ey); l2 = min(ln_, L_ - 4)
     x2, y2 = Cx + ex * l2, Cy + ey * l2; nx, ny = -ey, ex
-    sh = f'<polygon points="{Cx+nx*2:.1f},{Cy+ny*2:.1f} {x2+nx*5:.1f},{y2+ny*5:.1f} {x2-nx*5:.1f},{y2-ny*5:.1f} {Cx-nx*2:.1f},{Cy-ny*2:.1f}" fill="#000" fill-opacity=".55"/>'
-    sx, sy = O[0] + (R + 24) * math.sin(az), O[1] - (R + 24) * math.cos(az)
-    sun = f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="22" fill="#fbbf24" fill-opacity=".25"/><circle cx="{sx:.1f}" cy="{sy:.1f}" r="11" fill="#fbbf24"/>'
-bgp = "#0b0820" if night else "#e9e0fb"
-txt = "Nox" if night else "Hora solaris vera"
-star = "".join(f'<circle cx="{x}" cy="{y}" r="1.4" fill="#fff"/>' for x, y in ((40, 40), (420, 60), (60, 400), (410, 390), (30, 220), (435, 230), (150, 25), (320, 20))) if night else ""
-open("solarium.svg", "w", encoding="utf-8").write(f'''<svg xmlns="http://www.w3.org/2000/svg" width="460" height="470" viewBox="0 0 460 470">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1035"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
-<radialGradient id="m" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="{bgp}"/><stop offset="1" stop-color="{'#05030f' if night else '#b7a6e8'}"/></radialGradient>
-<linearGradient id="au" x1="0" x2="1"><stop offset="0" stop-color="#b45309"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#92400e"/></linearGradient></defs>
-<rect width="460" height="470" rx="14" fill="url(#g)" stroke="#8A2BE2" stroke-width="2"/>{star}
-<circle cx="{O[0]}" cy="{O[1]}" r="{R+6}" fill="#6d28d9" fill-opacity=".5"/><circle cx="{O[0]}" cy="{O[1]}" r="{R}" fill="url(#m)" stroke="#8A2BE2" stroke-width="3"/>
-<g opacity="{.35 if night else 1}">{ln}</g>{sh}
-<rect x="{Cx-4}" y="{Cy}" width="8" height="{Ls}" rx="2" fill="url(#au)"/><circle cx="{Cx}" cy="{Cy}" r="6" fill="#92400e"/>{sun}
-<text x="230" y="455" text-anchor="middle" style="font:600 16px Georgia,serif;font-style:italic;fill:#c4b5fd">{txt}</text></svg>''')
+    sh = f'<polygon points="{Cx+nx*2:.1f},{Cy+ny*2:.1f} {x2+nx*5:.1f},{y2+ny*5:.1f} {x2-nx*5:.1f},{y2-ny*5:.1f} {Cx-nx*2:.1f},{Cy-ny*2:.1f}" fill="#000" fill-opacity=".5"/>'
+    rr = R + 70; sx, sy = O[0] + rr * math.sin(az), O[1] - rr * math.cos(az)
+    rays = "".join(f'<line x1="{sx+15*math.cos(k*math.pi/6):.1f}" y1="{sy+15*math.sin(k*math.pi/6):.1f}" x2="{sx+25*math.cos(k*math.pi/6):.1f}" y2="{sy+25*math.sin(k*math.pi/6):.1f}" stroke="#f5c542" stroke-width="3" stroke-linecap="round"/>' for k in range(12))
+    sun = f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="28" fill="#f5c542" fill-opacity=".18"/>{rays}<circle cx="{sx:.1f}" cy="{sy:.1f}" r="11" fill="#f5c542" stroke="#b7791f" stroke-width="2"/>'
+# zodiacus: signum in quo Sol hodie est (longitudo ecliptica)
+dj = nu.timestamp() / 86400 + 2440587.5 - 2451545.0
+Mq = math.radians((357.528 + 0.9856003 * dj) % 360)
+lam = (280.46 + 0.9856474 * dj + 1.915 * math.sin(Mq) + 0.02 * math.sin(2 * Mq)) % 360
+sg = int(lam // 30)
+ZG = "♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓".split()
+ZN = ["Ariete", "Tauro", "Geminis", "Cancro", "Leone", "Virgine", "Libra", "Scorpio", "Sagittario", "Capricorno", "Aquario", "Piscibus"]
+zod = ""
+for k in range(12):
+    a_ = math.radians(k * 30 + 15); gx, gy = O[0] + (R + 45) * math.sin(a_), O[1] - (R + 45) * math.cos(a_)
+    on = k == sg
+    if on: zod += f'<circle cx="{gx:.1f}" cy="{gy:.1f}" r="13" fill="#f5c542" fill-opacity=".3" stroke="#f5c542" stroke-width="1.5"/>'
+    fw, fc, fo = (700, "#fff4c2", 1) if on else (500, "#c9a24a", .7)
+    zod += f'<text x="{gx:.1f}" y="{gy+6:.1f}" text-anchor="middle" style="font:{fw} 17px Segoe UI Symbol,Arial Unicode MS,DejaVu Sans,serif;fill:{fc};fill-opacity:{fo}">{ZG[k]}&#xFE0E;</text>'
+    zod += f'<line x1="{O[0]+(R+32)*math.sin(math.radians(k*30)):.1f}" y1="{O[1]-(R+32)*math.cos(math.radians(k*30)):.1f}" x2="{O[0]+(R+58)*math.sin(math.radians(k*30)):.1f}" y2="{O[1]-(R+58)*math.cos(math.radians(k*30)):.1f}" stroke="#c9a24a" stroke-opacity=".5"/>'
+# meandros (clavis Graeca) circa orbem
+mea = ""
+for k in range(48):
+    mea += f'<path transform="rotate({k*7.5} {O[0]} {O[1]}) translate({O[0]-11} {O[1]-R-22})" d="M0 16 V0 H16 V11 H5 V5 H11" fill="none" stroke="#c9a24a" stroke-width="2.2" stroke-linejoin="miter"/>'
+vein = '<path d="M120 150 Q200 200 170 300 T260 380" stroke="#9c8a63" stroke-opacity=".25" fill="none" stroke-width="2"/><path d="M330 120 Q300 220 340 300" stroke="#9c8a63" stroke-opacity=".2" fill="none" stroke-width="1.5"/>' if not night else ""
+star = "".join(f'<circle cx="{x}" cy="{y}" r="1.4" fill="#fff"/>' for x, y in ((40, 40), (430, 60), (50, 380), (430, 370), (25, 220), (455, 230), (150, 22), (330, 18))) if night else ""
+txt = ("Nox" if night else "Hora solaris vera") + " · Sol in " + ZN[sg]
+c1, c2 = ("#0b0f1d", "#04060c") if night else ("#f7f0df", "#d6c39a")
+open("solarium.svg", "w", encoding="utf-8").write(f'''<svg xmlns="http://www.w3.org/2000/svg" width="480" height="520" viewBox="0 0 480 520">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101a2e"/><stop offset="1" stop-color="#070b14"/></linearGradient>
+<radialGradient id="m" cx=".38" cy=".32" r=".85"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></radialGradient>
+<linearGradient id="st" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient>
+<linearGradient id="au" x1="0" x2="1"><stop offset="0" stop-color="#7a4a14"/><stop offset=".5" stop-color="#e3b04b"/><stop offset="1" stop-color="#6b3e0e"/></linearGradient></defs>
+<rect width="480" height="520" rx="14" fill="url(#g)" stroke="#c9a24a" stroke-width="2"/>{star}
+<circle cx="{O[0]}" cy="{O[1]}" r="{R+58}" fill="#14283f" stroke="#c9a24a" stroke-width="2"/><circle cx="{O[0]}" cy="{O[1]}" r="{R+32}" fill="#1e4d7a" fill-opacity=".7" stroke="#c9a24a" stroke-width="1.5"/>{zod}
+<circle cx="{O[0]}" cy="{O[1]}" r="{R+6}" fill="none" stroke="#c9a24a" stroke-width="2"/>{mea}
+<circle cx="{O[0]}" cy="{O[1]}" r="{R}" fill="url(#m)" stroke="#c9a24a" stroke-width="3"/>{vein}
+<g opacity="{.55 if night else 1}">{ln}</g>{sh}
+<rect x="{Cx-4}" y="{Cy}" width="8" height="{Ls}" rx="2" fill="url(#au)"/><circle cx="{Cx}" cy="{Cy}" r="6" fill="#6b3e0e" stroke="#e3b04b"/>{sun}
+<rect x="175" y="446" width="130" height="20" fill="url(#st)" stroke="#c9a24a"/><rect x="140" y="466" width="200" height="20" fill="url(#st)" stroke="#c9a24a"/><rect x="100" y="486" width="280" height="22" fill="url(#st)" stroke="#c9a24a"/>
+<text x="240" y="501" text-anchor="middle" style="font:italic 600 13px Palatino Linotype,Times New Roman,serif;fill:{'#c9a24a' if night else '#4a2c10'}">{txt}</text></svg>''')
