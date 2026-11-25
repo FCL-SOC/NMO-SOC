@@ -13,6 +13,12 @@
 
 </div>
 
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
+
+</div>
+
 ## 🛠️ Artes
 
 <div align="center">
@@ -24,6 +30,16 @@
 ![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Claude](https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
+
+<br>
+
+<img src="https://skillicons.dev/icons?i=html,css,js,python,latex,git,github,vscode&perline=8"/>
+
+</div>
+
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
 
 </div>
 
@@ -45,6 +61,12 @@
 
 </div>
 
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
+
+</div>
+
 ## 📈 Numeri
 
 <div align="center">
@@ -56,11 +78,23 @@
 
 </div>
 
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
+
+</div>
+
 ## 🏆 Trophaea
 
 <div align="center">
 
 <img src="https://github-profile-trophy.vercel.app/?username=NMO-SOC&theme=radical&no-frame=true&no-bg=true&row=1&column=7&margin-w=10"/>
+
+</div>
+
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
 
 </div>
 
@@ -71,6 +105,8 @@
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=NMO-SOC&theme=react-dark&hide_border=true&bg_color=0d1117&color=A78BFA&line=8A2BE2&point=FFFFFF&area=true&custom_title=Actio%20Cotidiana"/>
 
 <br>
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=800&color=F7DF1E&center=true&vCenter=true&width=500&lines=Carpe+diem;Veni%2C+vidi%2C+vici;Docendo+discimus" alt="Carpe diem"/>
 
 *Ars longa, vita brevis.*
 
