@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir dist && python numeri.py && mv numeri.svg linguae.svg bullae.svg urbs.svg columnae.svg titulus.svg COMMISSIONES.md dist/ && (mv summa.svg dist/ || true)
+      - run: mkdir dist && python numeri.py && MODE=github python numeri.py && MODE=gitlab python numeri.py && (mv gh-*.svg gl-*.svg gh-COMMISSIONES.md gl-COMMISSIONES.md dist/ || true) && mv numeri.svg linguae.svg bullae.svg urbs.svg columnae.svg titulus.svg COMMISSIONES.md dist/ && (mv summa.svg dist/ || true)
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}", GITLAB_TOKEN: "${{ secrets.GITLAB_TOKEN }}"}
       - uses: Platane/snk/svg-only@v3
         with:
