@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency: {group: tempus, cancel-in-progress: false}
 jobs:
   tempus:
     runs-on: ubuntu-latest
